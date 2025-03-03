@@ -3,7 +3,7 @@
 import { Header } from './header';
 import {Footer} from './footer';
 
-import { LayoutProps } from '@/app/shared/models/common';
+import { LayoutProps } from '@/shared/models/common';
 
 export function MainLayout({ children }: LayoutProps) {
 
