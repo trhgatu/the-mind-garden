@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,14 +29,6 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
-      setActiveSection(id);
-    }
-  };
   const overlayVariants = {
     closed: {
       opacity: 0,
@@ -89,16 +80,16 @@ export function Header() {
           </div>
           <nav className="hidden md:flex">
             <ul className="flex space-x-6 items-center">
-              {["about", "skills", "journey", "projects"].map((section) => (
-                <li key={section}>
+              {["Trang chủ", "Liên hệ"].map((section) => (
+                <li
+                  key={section.toString()}>
                   <button
-                    onClick={() => scrollToSection(section)}
                     className="relative py-1 px-2 overflow-hidden group"
                   >
-                    <span className={`relative z-10 transition-colors duration-300 ${activeSection === section ? "text-red-500" : "group-hover:text-red-500"}`}>
+                    <span className={`relative z-10 transition-colors duration-300`}>
                       {section.charAt(0).toUpperCase() + section.slice(1)}
                     </span>
-                    <span className={`absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-300 ${activeSection === section ? "w-full" : "w-0 group-hover:w-full"}`}></span>
+                    <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-300"></span>
                   </button>
                 </li>
               ))}
@@ -140,6 +131,7 @@ export function Header() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
+              key="menu-mobile-overlay"
               initial="closed"
               animate="open"
               exit="closed"
@@ -161,6 +153,7 @@ export function Header() {
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
+                key="mobile-menu"
                 initial="closed"
                 animate="open"
                 exit="closed"
@@ -194,28 +187,17 @@ export function Header() {
 
                   <div className="flex-1 py-8 px-6 overflow-y-auto dark:bg-[#202020] bg-white">
                     <div className="space-y-1">
-                      {["Trang chủ", "Liên hệ" ].map((section) => (
-                        <button
-                          key={section}
-                          onClick={() => scrollToSection(section)}
-                          className={`w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center ${activeSection === section ? "bg-accent text-red-500" : "hover:bg-accent"
-                            }`}
+                      {["Trang chủ", "Liên hệ"].map((section) => (
+                        <Link
+                          key={section.toString()}
+                          href={section}
+                          className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
                         >
                           <span className="text-lg font-medium">
                             {section.charAt(0).toUpperCase() + section.slice(1)}
                           </span>
-                          {activeSection === section && (
-                            <motion.span
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              className="ml-auto"
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                              </svg>
-                            </motion.span>
-                          )}
-                        </button>
+
+                        </Link>
                       ))}
                     </div>
 
