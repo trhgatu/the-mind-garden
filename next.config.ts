@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dummyimage.com',
+        pathname: '/600x400/**'
+      },
+    ],
+  },
 };
 
 export default nextConfig;

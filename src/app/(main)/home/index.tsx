@@ -1,10 +1,13 @@
-export function HomePage() {
+import Hero from "@/components/home/hero";
+import FeaturedPosts from "@/components/home/featured-posts";
+import Categories from "@/components/home/categories";
 
+export function HomePage() {
     return (
-        <div className="w-full flex flex-col">
-            <div className="md:mx-4 md:mt-4 mx-2 mt-2">
-                    HOme
-            </div>
-        </div>
+        <main className="container mx-auto px-4">
+            <Hero />
+            <FeaturedPosts />
+            <Categories />
+        </main>
     );
 }
