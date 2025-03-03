@@ -187,25 +187,32 @@ export function Header() {
 
                   <div className="flex-1 py-8 px-6 overflow-y-auto dark:bg-[#202020] bg-white">
                     <div className="space-y-1">
-                      {["Trang chủ", "Liên hệ"].map((section) => (
-                        <Link
-                          key={section.toString()}
-                          href={section}
-                          className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
-                        >
-                          <span className="text-lg font-medium">
-                            {section.charAt(0).toUpperCase() + section.slice(1)}
-                          </span>
+                      <Link
+                        href="/home"
+                        className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span className="text-lg font-medium">
+                          Trang chủ
+                        </span>
 
-                        </Link>
-                      ))}
+                      </Link>
+                      <Link
+                        href="contact"
+                        className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span className="text-lg font-medium">
+                          Liên hệ
+                        </span>
+                      </Link>
                     </div>
 
                     <div
                       className="mt-8 pt-6 border-t border-border"
                     >
                       <div className="flex items-center justify-between mb-6">
-                        <span className="text-sm font-medium">Switch theme</span>
+                        <span className="text-sm font-medium">Chế độ</span>
                         <ModeToggle />
                       </div>
 
