@@ -81,17 +81,16 @@ export function Header() {
           <nav className="hidden md:flex">
             <ul className="flex space-x-6 items-center">
               {["Trang chủ", "Liên hệ"].map((section) => (
-                <li
-                  key={section.toString()}>
-                  <button
-                    className="relative py-1 px-2 overflow-hidden group"
-                  >
-                    <span className={`relative z-10 transition-colors duration-300`}>
-                      {section.charAt(0).toUpperCase() + section.slice(1)}
-                    </span>
-                    <span className="absolute bottom-0 left-0 h-0.5 bg-red-500 transition-all duration-300"></span>
-                  </button>
-                </li>
+                <Link
+                  className="relative py-1 px-2 overflow-hidden group"
+                  key={section}
+                  href={`/${section === "Trang chủ" ? "home" : "contact"}`}
+                >
+                  <span className={`relative z-10 transition-colors duration-300`}>
+                    {section.charAt(0).toUpperCase() + section.slice(1)}
+                  </span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></span>
+                </Link>
               ))}
               <li>
                 <Link href="/blog" className="relative py-1 px-2 overflow-hidden group">
@@ -187,27 +186,17 @@ export function Header() {
 
                   <div className="flex-1 py-8 px-6 overflow-y-auto dark:bg-[#202020] bg-white">
                     <div className="space-y-1">
-                      <Link
-                        href="/home"
-                        className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className="text-lg font-medium">
-                          Trang chủ
-                        </span>
-
-                      </Link>
-                      <Link
-                        href="contact"
-                        className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className="text-lg font-medium">
-                          Liên hệ
-                        </span>
-                      </Link>
+                      {["Trang chủ", "Liên hệ"].map((section) => (
+                        <Link
+                          key={section}
+                          href={`/${section === "Trang chủ" ? "home" : "contact"}`}
+                          className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <span className="text-lg font-medium">{section}</span>
+                        </Link>
+                      ))}
                     </div>
-
                     <div
                       className="mt-8 pt-6 border-t border-border"
                     >
@@ -215,13 +204,8 @@ export function Header() {
                         <span className="text-sm font-medium">Chế độ</span>
                         <ModeToggle />
                       </div>
-
-
-
                     </div>
-
                   </div>
-
                   <div
                     className="p-6 border-t border-border mt-auto dark:bg-[#202020] bg-white"
                   >
