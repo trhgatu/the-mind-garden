@@ -12,6 +12,7 @@ interface Category {
   const Categories = () => {
     return (
       <section className="py-10">
+        <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-semibold mb-5">Danh mục</h2>
         <div className="flex gap-3 flex-wrap">
           {categories.map((category) => (
@@ -22,6 +23,7 @@ interface Category {
               {category.name}
             </span>
           ))}
+        </div>
         </div>
       </section>
     );

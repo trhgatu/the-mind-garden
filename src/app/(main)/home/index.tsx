@@ -1,10 +1,10 @@
-import Hero from "@/components/home/hero";
-import FeaturedPosts from "@/components/home/featured-posts";
-import Categories from "@/components/home/categories";
+import Hero from "@/components/home/hero/hero";
+import FeaturedPosts from "@/components/home/featured-posts/featured-posts";
+import Categories from "@/components/home/categories/categories";
 
 export function HomePage() {
     return (
-        <main className="container mx-auto px-4">
+        <main>
             <Hero />
             <FeaturedPosts />
             <Categories />

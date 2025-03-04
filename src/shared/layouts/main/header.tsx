@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { ModeToggle } from "@/shared/components/toggle-theme";
 import { motion, AnimatePresence } from "framer-motion";
+import { quintessential } from "@/shared/fonts/fonts";
 
 export function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -74,7 +75,7 @@ export function Header() {
       <div className="py-4">
         <div className="container max-w-5xl mx-auto flex items-center justify-between px-4">
           <div className="flex items-center">
-            <Link href="/home" className="text-2xl font-bold hover:scale-105 transition-all hover:text-red-500 duration-100">
+            <Link href="/home" className={`text-2xl ${quintessential.className} font-bold hover:scale-105 transition-all hover:text-[#7B3F01] duration-100`}>
               The Mind Garden
             </Link>
           </div>
@@ -89,15 +90,15 @@ export function Header() {
                   <span className={`relative z-10 transition-colors duration-300`}>
                     {section.charAt(0).toUpperCase() + section.slice(1)}
                   </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
                 </Link>
               ))}
               <li>
                 <Link href="/blog" className="relative py-1 px-2 overflow-hidden group">
-                  <span className="relative z-10 transition-colors duration-300 group-hover:text-red-500">
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-[#7B3F01]">
                     Blog
                   </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
                 </Link>
               </li>
 

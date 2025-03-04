@@ -3,7 +3,7 @@ import { Facebook, Twitter, Instagram } from "lucide-react";
 
 export function Footer() {
     return (
-        <footer className="w-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 py-6">
+        <footer className="w-full py-6">
             <div className="container mx-auto px-4 text-center">
                 {/* Logo & Bản quyền */}
                 <p className="text-lg font-semibold">The Mind Garden</p>
