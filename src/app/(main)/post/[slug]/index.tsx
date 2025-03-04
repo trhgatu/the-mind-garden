@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useFetch } from "@/shared/hooks/useFetch";
 import { Post } from "@/shared/types/post";
+import PostContent from "@/components/post/post-content/post-content";
 
 export function PostPage() {
     const { slug } = useParams();
@@ -19,7 +20,7 @@ export function PostPage() {
     return (
         <div className="container mx-auto px-4 py-10">
             <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-            <p className="text-gray-600">{post.content}</p>
+            <PostContent content={post.content} />
         </div>
     );
 }
