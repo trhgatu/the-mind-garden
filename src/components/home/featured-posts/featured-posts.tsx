@@ -16,7 +16,7 @@ import {
 
 const FeaturedPosts = () => {
   const { data, isLoading, isError } = useFetch<{ data: Post[] }>({
-    url: "/posts?featured=true",
+    url: "/posts",
   });
 
   const posts = data?.data;
