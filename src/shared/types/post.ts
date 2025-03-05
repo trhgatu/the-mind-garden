@@ -30,7 +30,6 @@ export interface Post {
     updatedAt: string;
   }
 
-  /** Kiểu dữ liệu cho request tạo bài viết */
   export interface CreatePostRequest {
     title?: string;
     content: string;
@@ -42,7 +41,6 @@ export interface Post {
     isAI?: boolean;
   }
 
-  /** Kiểu dữ liệu cho response khi tạo bài viết */
   export interface CreatePostResponse {
     success: boolean;
     message: string;
