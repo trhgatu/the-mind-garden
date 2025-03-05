@@ -15,7 +15,7 @@ const QuoteReflection = ({ reflection }: QuoteReflectionProps) => {
             <span className="absolute top-2 left-4 text-5xl text-gray-400 dark:text-gray-500 opacity-50">
                 ❝
             </span>
-            <p className={`text-lg font-medium ${lora.className} leading-relaxed italic text-center`}>
+            <p className={`text-lg p-6 font-medium ${lora.className} leading-relaxed italic text-center`}>
                 {reflection}
             </p>
 
