@@ -39,6 +39,18 @@ const data = {
       items: [],
     },
     {
+      title: "Quản lý tags",
+      url: "/admin/tags",
+      icon: LayoutList,
+      items: [],
+    },
+    {
+      title: "Quản lý quotes",
+      url: "/admin/quotes",
+      icon: LayoutList,
+      items: [],
+    },
+    {
       title: "Quản lý danh mục",
       url: "/admin/categories",
       icon: LayoutList,
