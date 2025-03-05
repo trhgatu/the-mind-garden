@@ -31,7 +31,7 @@ const FeaturedPosts = () => {
           <p
             className={`relative text-3xl px-4 ${playfairDisPlay.className} font-bold text-primary text-left mb-6 after:block after:w-20 after:h-[3px] after:bg-primary after:mt-2`}
           >
-            Bài viết nổi bật.
+            Nổi bật.
           </p>
           <Carousel
             opts={{

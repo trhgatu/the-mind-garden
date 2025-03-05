@@ -29,6 +29,9 @@
       "@/app/*": [
         "./src/app/*"
       ],
+      "@/public/*": [
+        "./public/*"
+      ],
     }
   },
   "include": [
