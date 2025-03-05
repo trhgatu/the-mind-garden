@@ -18,7 +18,7 @@ export function PostPage() {
     const post = data.post;
 
     return (
-        <div className="container mx-auto px-4 py-10">
+        <div className="container mx-auto px-4 py-10" style={{ marginTop: "var(--header-height)" }}>
             <h1 className="text-3xl text-center font-bold mb-4">{post.title}</h1>
             <div className="max-w-5xl mx-auto">
             <PostContent content={post.content} />

@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="flex h-screen hero  items-center justify-center">
+    <section className="flex h-screen hero items-center justify-center">
       <div className="rounded-md">
         <div className="flex flex-col gap-6 items-center">
           <motion.div
