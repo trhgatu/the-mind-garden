@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Post } from "@/shared/types/post"
-import { Trash, Edit } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ColumnDef } from "@tanstack/react-table";
+import { Post } from "@/shared/types/post";
+import { ActionButtons } from "@/components/admin/posts/action-buttons";
 
 export const columns: ColumnDef<Post>[] = [
     {
         accessorKey: "title",
         header: "Tiêu đề",
         cell: ({ row }) => {
-            const content = row.getValue("content") as string;
+            const title = row.getValue("title") as string;
             return (
-                <div className="truncate max-w-[250px]" title={content}>
-                    {content.length > 100 ? content.slice(0, 100) + "..." : content}
+                <div className="truncate max-w-[250px]" title={title}>
+                    {title.length > 100 ? title.slice(0, 100) + "..." : title}
                 </div>
             );
         },
@@ -33,6 +32,20 @@ export const columns: ColumnDef<Post>[] = [
     {
         accessorKey: "status",
         header: "Trạng thái",
+        cell: ({ row }) => {
+            const status = row.getValue("status") as string;
+            return (
+                <span
+                    className={`px-2 py-1 rounded-md text-sm font-medium ${
+                        status === "published"
+                            ? "bg-green-200 text-green-800"
+                            : "bg-gray-200 text-gray-800"
+                    }`}
+                >
+                    {status === "published" ? "Công khai" : "Nháp"}
+                </span>
+            );
+        },
     },
     {
         accessorKey: "createdAt",
@@ -42,36 +55,6 @@ export const columns: ColumnDef<Post>[] = [
     {
         id: "actions",
         header: "Hành động",
-        cell: ({ row }) => {
-            const post = row.original;
-
-            return (
-                <div className="flex gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleEdit(post)}
-                        className="flex items-center gap-1"
-                    >
-                        <Edit size={16} />
-                        Sửa
-                    </Button>
-
-                    <Button
-                        variant="destructive"
-                        size="sm"
-                        /* onClick={() => handleDelete(post._id)} */
-                        className="flex items-center gap-1"
-                    >
-                        <Trash size={16} />
-                        Xóa
-                    </Button>
-                </div>
-            );
-        },
+        cell: ({ row }) => <ActionButtons post={row.original} />,
     },
 ];
-const handleEdit = (post: Post) => {
-    console.log("Chỉnh sửa bài viết:", post);
-    // TODO: Hiển thị modal hoặc chuyển đến trang chỉnh sửa
-};

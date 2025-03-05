@@ -39,7 +39,7 @@ export function NavMain({ items }: NavMainProps) {
                     }`}
                 >
                   {item.icon && <item.icon className="w-5 h-5" />}
-                  <span className="text-base">{item.title}</span>
+                  <span className="text-md">{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

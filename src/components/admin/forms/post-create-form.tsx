@@ -1,0 +1,127 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import "react-mde/lib/styles/css/react-mde-all.css";
+import ReactMde from "react-mde";
+import PostContent from "@/components/post/post-content/post-content";
+import { useMutationFetch, useFetch } from "@/shared/hooks";
+import { toast } from "sonner";
+
+interface PostFormProps {
+    onSuccess?: () => void;
+}
+
+export function PostCreateForm({ onSuccess }: PostFormProps) {
+    const router = useRouter();
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [status, setStatus] = useState("published");
+    const [categoryId, setCategoryId] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
+
+    const { data: categoriesData = { categories: [] } } = useFetch<{ categories: { _id: string; name: string }[] }>({
+        url: "/categories",
+    });
+    const categories = categoriesData.categories;
+
+    const mutation = useMutationFetch({
+        url: "/posts/create",
+        method: "POST",
+        options: {
+            onSuccess: () => {
+                toast.success("Tạo bài viết mới thành công!");
+                if (onSuccess) {
+                    onSuccess();
+                } else {
+                    router.push("/admin/posts");
+                }
+            },
+            onError: (error: Error) => {
+                toast.error(error.message || "Lưu bài viết thất bại!");
+            },
+        },
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            mutation.mutate({
+                title,
+                content,
+                status,
+                categoryId,
+            });
+        } catch (error) {
+            toast.error("Lưu bài viết thất bại!");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="space-y-4">
+            <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+            />
+
+            <div>
+                <label className="text-sm font-medium">Nội dung</label>
+                <ReactMde
+                    value={content}
+                    onChange={setContent}
+                    selectedTab={selectedTab}
+                    onTabChange={setSelectedTab}
+                    generateMarkdownPreview={(content) =>
+                        Promise.resolve(<PostContent content={content} />)
+                    }
+                />
+            </div>
+
+            <div>
+                <label className="text-sm font-medium">Trạng thái</label>
+                <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                >
+                    <option value="published">Công khai</option>
+                    <option value="draft">Nháp</option>
+                </select>
+            </div>
+
+            {/* Dropdown for selecting category */}
+            <div>
+                <label className="text-sm font-medium">Danh mục</label>
+                <select
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)} // Set categoryId
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                >
+                    <option value="" disabled>Chọn danh mục</option>
+                    {categories.map((cat) => (
+                        <option key={cat._id} value={cat._id}>
+                            {cat.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="flex gap-4">
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Đang lưu..." : "Tạo bài viết"}
+                </Button>
+                <Button type="button" variant="outline" onClick={() => router.back()}>
+                    Hủy
+                </Button>
+            </div>
+        </form>
+    );
+}

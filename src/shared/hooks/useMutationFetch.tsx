@@ -1,10 +1,9 @@
+import { api } from "@/shared/utils/api";
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 
-/** Các phương thức HTTP cho mutation */
 type FetchMethod = "POST" | "PUT" | "DELETE";
 
-/** Định nghĩa generic type cho request và response */
 interface UseMutationFetchProps<TRequest, TResponse> {
   url: string;
   method: FetchMethod;
@@ -12,7 +11,6 @@ interface UseMutationFetchProps<TRequest, TResponse> {
   options?: UseMutationOptions<TResponse, Error, TRequest>;
 }
 
-/** Custom hook dùng để gọi API POST, PUT, DELETE */
 export function useMutationFetch<TRequest, TResponse>({
   url,
   method,
@@ -21,7 +19,7 @@ export function useMutationFetch<TRequest, TResponse>({
 }: UseMutationFetchProps<TRequest, TResponse>) {
   return useMutation<TResponse, Error, TRequest>({
     mutationFn: async (body: TRequest) => {
-      const response = await axios({
+      const response = await api({
         url,
         method,
         data: body,

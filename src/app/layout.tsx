@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const queryClient = useMemo(() => new QueryClient(), []);
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <QueryClientProvider client={queryClient}>
             {children}
+            <Toaster/>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>

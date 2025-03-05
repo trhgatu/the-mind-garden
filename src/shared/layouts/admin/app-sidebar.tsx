@@ -1,12 +1,16 @@
 "use client"
 
 import * as React from "react"
+import { PATHS } from "@/app/routes"
+
 import {
   CircleGauge,
   Newspaper,
   LayoutList,
   Tags,
   Users,
+  TagsIcon,
+  Quote,
 } from "lucide-react"
 
 import { NavMain } from "@/shared/layouts/admin/nav-main"
@@ -21,38 +25,38 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/admin/dashboard",
+      url: PATHS.ADMIN.BASE,
       icon: CircleGauge,
       isActive: true,
       items: [],
     },
     {
       title: "Quản lý bài viết",
-      url: "/admin/posts",
+      url: PATHS.ADMIN.POSTS,
       icon: Newspaper,
       items: [],
     },
     {
       title: "Quản lý người dùng",
-      url: "/admin/users",
+      url: PATHS.ADMIN.USERS,
       icon: Users,
       items: [],
     },
     {
       title: "Quản lý tags",
-      url: "/admin/tags",
-      icon: LayoutList,
+      url: PATHS.ADMIN.TAGS,
+      icon: TagsIcon,
       items: [],
     },
     {
       title: "Quản lý quotes",
-      url: "/admin/quotes",
-      icon: LayoutList,
+      url: PATHS.ADMIN.QUOTES,
+      icon: Quote,
       items: [],
     },
     {
       title: "Quản lý danh mục",
-      url: "/admin/categories",
+      url: PATHS.ADMIN.CATEGORIES,
       icon: LayoutList,
       items: [],
     },

@@ -1,6 +1,7 @@
 export interface Post {
     id: string;
     authorId?: string | null;
+    categoryId: string;
     isAI: boolean;
     title: string;
     slug:string;
