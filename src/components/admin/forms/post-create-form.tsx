@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import MarkdownEditor from "@/components/admin/markdown-editor";
+import dynamic from "next/dynamic";
+const SimpleMdeEditor = dynamic(
+	() => import("react-simplemde-editor"),
+	{ ssr: false }
+);
+import "easymde/dist/easymde.min.css";
 import { useMutationFetch, useFetch } from "@/shared/hooks";
 import { toast } from "sonner";
 import { supabase } from "@/shared/utils";
@@ -19,6 +24,7 @@ export function PostCreateForm() {
     const [categoryId, setCategoryId] = useState("");
     const [loading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
 
     const { data: categoriesData = { categories: [] } } = useFetch<{ categories: { _id: string; name: string }[] }>({
         url: "/categories",
@@ -101,7 +107,7 @@ export function PostCreateForm() {
 
             <div>
                 <label className="text-sm font-medium">Nội dung</label>
-                <MarkdownEditor value={content} onChange={setContent} />
+                <SimpleMdeEditor value={content} onChange={setContent} />
             </div>
 
             <div>
