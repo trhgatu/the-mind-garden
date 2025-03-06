@@ -5,9 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import "react-mde/lib/styles/css/react-mde-all.css";
-import ReactMde from "react-mde";
-import PostContent from "@/components/post/post-content/post-content";
+import MarkdownEditor from "@/components/admin/markdown-editor";
 import { useMutationFetch, useFetch } from "@/shared/hooks";
 import { toast } from "sonner";
 import { supabase } from "@/shared/utils";
@@ -20,7 +18,6 @@ export function PostCreateForm() {
     const [status, setStatus] = useState("published");
     const [categoryId, setCategoryId] = useState("");
     const [loading, setLoading] = useState(false);
-    const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const { data: categoriesData = { categories: [] } } = useFetch<{ categories: { _id: string; name: string }[] }>({
@@ -104,15 +101,7 @@ export function PostCreateForm() {
 
             <div>
                 <label className="text-sm font-medium">Nội dung</label>
-                <ReactMde
-                    value={content}
-                    onChange={setContent}
-                    selectedTab={selectedTab}
-                    onTabChange={setSelectedTab}
-                    generateMarkdownPreview={(content) =>
-                        Promise.resolve(<PostContent content={content} />)
-                    }
-                />
+                <MarkdownEditor value={content} onChange={setContent} />
             </div>
 
             <div>
