@@ -4,17 +4,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import ReactMde from "react-mde";
 import PostContent from "@/components/post/post-content/post-content";
 import { useMutationFetch, useFetch } from "@/shared/hooks";
 import { toast } from "sonner";
+import { supabase } from "@/shared/utils";
+import Image from "next/image";
 
-interface PostFormProps {
-    onSuccess?: () => void;
-}
-
-export function PostCreateForm({ onSuccess }: PostFormProps) {
+export function PostCreateForm() {
     const router = useRouter();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -22,6 +21,7 @@ export function PostCreateForm({ onSuccess }: PostFormProps) {
     const [categoryId, setCategoryId] = useState("");
     const [loading, setLoading] = useState(false);
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const { data: categoriesData = { categories: [] } } = useFetch<{ categories: { _id: string; name: string }[] }>({
         url: "/categories",
@@ -34,31 +34,60 @@ export function PostCreateForm({ onSuccess }: PostFormProps) {
         options: {
             onSuccess: () => {
                 toast.success("Tạo bài viết mới thành công!");
-                if (onSuccess) {
-                    onSuccess();
-                } else {
-                    router.push("/admin/posts");
-                }
+                router.push("/admin/posts");
             },
             onError: (error: Error) => {
                 toast.error(error.message || "Lưu bài viết thất bại!");
             },
         },
     });
+    const uploadThumbnail = async () => {
+        if (!selectedFile) return null;
+
+        setLoading(true);
+        const fileName = `thumbnails/${Date.now()}-${selectedFile.name}`;
+
+        const { error } = await supabase.storage
+            .from("uploads")
+            .upload(fileName, selectedFile);
+
+        setLoading(false);
+
+        if (error) {
+            toast.error(`Lỗi khi tải ảnh lên! ${error.message}`);
+            return null;
+        }
+        return supabase.storage.from("uploads").getPublicUrl(fileName).data.publicUrl;
+    };
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        setSelectedFile(file);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!selectedFile) {
+            toast.error("Vui lòng tải lên ảnh bìa!");
+            return;
+        }
+
         setLoading(true);
 
         try {
+            const uploadedThumbnail = await uploadThumbnail();
+            if (!uploadedThumbnail) throw new Error("Tải ảnh lên thất bại!");
+
             mutation.mutate({
                 title,
                 content,
                 status,
                 categoryId,
+                thumbnail: uploadedThumbnail,
             });
-        } catch (error) {
-            toast.error("Lưu bài viết thất bại!");
+        } catch {
+            toast.error("Tạo bài viết thất bại!");
         } finally {
             setLoading(false);
         }
@@ -70,6 +99,7 @@ export function PostCreateForm({ onSuccess }: PostFormProps) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
+                placeholder="Tiêu đề bài viết"
             />
 
             <div>
@@ -96,13 +126,26 @@ export function PostCreateForm({ onSuccess }: PostFormProps) {
                     <option value="draft">Nháp</option>
                 </select>
             </div>
+            <div>
+                <Label htmlFor="thumbnail">Ảnh bìa</Label>
+                <Input type="file" id="thumbnail" accept="image/*" onChange={handleFileChange} className="w-full p-2 border border-gray-300 rounded-md" />
+                {selectedFile && (
+                    <div className="mt-2">
+                        <Image
+                        src={URL.createObjectURL(selectedFile)}
+                        alt="Preview"
+                        width={600}
+                        height={300}
+                        className="w-40 h-40 object-cover rounded-md" />
+                    </div>
+                )}
+            </div>
 
-            {/* Dropdown for selecting category */}
             <div>
                 <label className="text-sm font-medium">Danh mục</label>
                 <select
                     value={categoryId}
-                    onChange={(e) => setCategoryId(e.target.value)} // Set categoryId
+                    onChange={(e) => setCategoryId(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded-md"
                 >
                     <option value="" disabled>Chọn danh mục</option>

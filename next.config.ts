@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
         hostname: 'dummyimage.com',
         pathname: '/600x400/**'
       },
+      {
+        protocol: "https",
+        hostname: "cmotqldfmxiwnbjyksmg.supabase.co",
+        pathname: "/storage/v1/object/public/uploads/**",
+      },
     ],
   },
 };

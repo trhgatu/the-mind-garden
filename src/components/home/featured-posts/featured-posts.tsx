@@ -47,15 +47,15 @@ const FeaturedPosts = () => {
                   >
                     <div className="overflow-hidden transition-all duration-300">
                       <div className="p-4">
-                        {post.media.length > 0 && (
+
                           <Image
-                            src={post?.media[0].url}
+                            src={post?.thumbnail || "/default-thumbnail.jpg"}
                             alt={post?.title || "Hình ảnh bài viết"}
                             width={600}
                             height={300}
                             className="w-full h-52 object-cover rounded-md mb-3"
                           />
-                        )}
+
 
                         <h3 className="text-lg font-semibold text-textPrimary truncate">
                           {post?.title}

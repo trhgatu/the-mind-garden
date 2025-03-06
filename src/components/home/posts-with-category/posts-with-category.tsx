@@ -9,13 +9,14 @@ import { useFetch } from "@/shared/hooks";
 import { Post, Category } from "@/shared/types";
 
 import { PostCard } from "@/components/post/post-card/post-card";
+import { SkeletonCard } from "@/components/post/post-card/post-skeleton-card";
 
 export function PostsWithCategories() {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(true);
     const { data: categoriesData } = useFetch<{ categories: Category[] }>({ url: '/categories' });
 
-
-    const { data: postsData } = useFetch<{ data: Post[] }>({
+    const { data: postsData, isLoading: postsLoading } = useFetch<{ data: Post[] }>({
         url: selectedCategory ? `/posts?limit=5&categoryId=${selectedCategory}` : "",
         options: {
             queryKey: ['posts', selectedCategory],
@@ -23,9 +24,11 @@ export function PostsWithCategories() {
         }
     });
 
-
+    const fetchedPosts = postsData?.data;
+    useEffect(() => {
+        setIsLoading(postsLoading);
+    }, [postsLoading]);
     const categories = categoriesData?.categories;
-    const posts = postsData?.data;
 
     useEffect(() => {
         if (categories && categories.length > 0) {
@@ -33,9 +36,6 @@ export function PostsWithCategories() {
         }
     }, [categories]);
 
-    useEffect(() => {
-        console.log('Categories:', categories);
-    }, [categories]);
 
     return (
         <div className="pb-12">
@@ -60,10 +60,15 @@ export function PostsWithCategories() {
                         {categories && categories.map((category: Category) => (
                             <TabsContent className="mt-4" key={category._id} value={category._id}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {posts && posts.length > 0 ? (
-                                        posts.map((post: Post) => <PostCard key={post.id} post={post} />)
+                                    {isLoading ? (
+                                        // Hiển thị 6 Skeleton Cards khi đang tải
+                                        Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
                                     ) : (
-                                        <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
+                                        fetchedPosts && fetchedPosts.length > 0 ? (
+                                            fetchedPosts.map((post: Post) => <PostCard key={post.id} post={post} />)
+                                        ) : (
+                                            <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
+                                        )
                                     )}
                                 </div>
                             </TabsContent>

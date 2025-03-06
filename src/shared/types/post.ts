@@ -9,10 +9,7 @@ export interface Post {
     slug:string;
     excerpt: string;
     content: string;
-    media: {
-      url: string;
-      type: "image" | "video";
-    }[];
+    thumbnail?: string;
     tags: string[];
     reactions: {
       userId: string;
