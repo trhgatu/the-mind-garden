@@ -1,11 +1,13 @@
+import { Category } from "@/shared/types/category";
+
 export interface Post {
     id: string;
     authorId?: string | null;
-    categoryId: string;
+    categoryId: Category;
     isAI: boolean;
     title: string;
     slug:string;
-    excerpt?: string;
+    excerpt: string;
     content: string;
     media: {
       url: string;

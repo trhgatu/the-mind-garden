@@ -30,6 +30,15 @@ export const columns: ColumnDef<Post>[] = [
         },
     },
     {
+        accessorKey: "categoryId",
+        header: "Danh mục",
+        cell: ({ row }) => {
+            const category = row.original.categoryId;
+
+            return <span>{category?.name || "Không có danh mục"}</span>
+        },
+    },
+    {
         accessorKey: "status",
         header: "Trạng thái",
         cell: ({ row }) => {
