@@ -81,19 +81,24 @@ export function Header() {
           </div>
           <nav className="hidden md:flex">
             <ul className="flex space-x-6 items-center">
-              {["Trang chủ", "Liên hệ"].map((section) => (
-                <Link
-                  className="relative py-1 px-2 overflow-hidden group"
-                  key={section}
-                  href={`/${section === "Trang chủ" ? "home" : "contact"}`}
-                >
-                  <span className={`relative z-10 transition-colors duration-300`}>
-                    {section.charAt(0).toUpperCase() + section.slice(1)}
-                  </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
-                </Link>
-              ))}
-
+              <ul className="flex space-x-6 items-center">
+                {[
+                  { label: "Trang chủ", path: "/home" },
+                  { label: "Liên hệ", path: "/contact" },
+                  { label: "Tác giả", path: "/author" },
+                ].map(({ label, path }) => (
+                  <Link
+                    className="relative py-1 px-2 overflow-hidden group"
+                    key={path}
+                    href={path}
+                  >
+                    <span className="relative z-10 transition-colors duration-300">
+                      {label}
+                    </span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
+                  </Link>
+                ))}
+              </ul>
               <li><ModeToggle /></li>
             </ul>
           </nav>

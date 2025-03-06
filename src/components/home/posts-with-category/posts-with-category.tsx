@@ -38,7 +38,7 @@ export function PostsWithCategories() {
     }, [categories]);
 
     return (
-        <div className="py-12">
+        <div className="pb-12">
             <div className="max-w-full mx-auto">
                 <div className="md:max-w-7xl mx-auto">
                     <p
@@ -47,16 +47,18 @@ export function PostsWithCategories() {
                         Theo danh mục.
                     </p>
                     <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full p-4">
-                        <TabsList className="grid grid-cols-4 gap-4">
-                            {categories && categories.map((category: Category) => (
-                                <TabsTrigger key={category._id} value={category._id}>
-                                    {category.name}
-                                </TabsTrigger>
-                            ))}
-                        </TabsList>
+                        <div className="flex justify-center">
+                            <TabsList className="grid grid-cols-4 gap-4">
+                                {categories && categories.map((category: Category) => (
+                                    <TabsTrigger key={category._id} value={category._id}>
+                                        {category.name}
+                                    </TabsTrigger>
+                                ))}
+                            </TabsList>
+                        </div>
 
                         {categories && categories.map((category: Category) => (
-                            <TabsContent key={category._id} value={category._id}>
+                            <TabsContent className="mt-4" key={category._id} value={category._id}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {posts && posts.length > 0 ? (
                                         posts.map((post: Post) => <PostCard key={post.id} post={post} />)
