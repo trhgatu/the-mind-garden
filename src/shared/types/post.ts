@@ -17,7 +17,7 @@ export interface Post {
     }[];
     comments: string[];
     shares: string[];
-    status: "public" | "friends" | "private";
+    status: "published" | "draft";
     location?: string;
     feeling?: string;
     seo?: {
@@ -31,11 +31,13 @@ export interface Post {
   }
 
   export interface CreatePostRequest {
-    title?: string;
+    title: string;
     content: string;
-    media?: { url: string; type: "image" | "video" }[];
+    thumbnail?: string;
+    excerpt: string;
+    categoryId: string,
     tags?: string[];
-    status?: "public" | "friends" | "private";
+    status: "published" | "draft";
     location?: string;
     feeling?: string;
     isAI?: boolean;
