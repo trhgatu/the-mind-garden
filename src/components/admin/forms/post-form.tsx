@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import "easymde/dist/easymde.min.css";
 import MarkdownPreview from "@/components/admin/markdown-preview";
 const SimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import ReactDOMServer from "react-dom/server";
+
 interface PostFormProps {
     initialData?: CreatePostRequest;
     onSubmit: (data: CreatePostRequest) => void;
@@ -26,19 +27,14 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
     const { uploadThumbnail } = useUpload();
     const { categories } = useCategories();
 
-    const { register, handleSubmit, setValue, watch } = useForm<CreatePostRequest>({
-        defaultValues: initialData || {
-            title: "",
-            content: "",
-            status: "published",
-            tags: [],
-            location: "",
-            categoryId: "",
-            feeling: "",
-            isAI: false,
-            thumbnail: "",
-        },
-    });
+    const { register, handleSubmit, setValue, watch, reset } = useForm<CreatePostRequest>();
+
+    useEffect(() => {
+        if (initialData && Object.keys(initialData).length > 0) {
+            console.log("Resetting form with initial data", initialData); // Debug print
+            reset(initialData);
+        }
+    }, [initialData, reset]);
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -62,11 +58,11 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
 
     return (
         <form onSubmit={handleSubmit(submitForm)} className="space-y-4">
-            <Input {...register("title", { required: true })} placeholder="Tiêu đề bài viết" />
+            <Input {...register("title", { required: true })} placeholder="Tiêu đề bài viết" value={watch("title") || ""} />
 
             <Label>Nội dung</Label>
             <SimpleMdeEditor
-                value={watch("content")}
+                value={watch("content") || ""}
                 onChange={(value) => setValue("content", value, { shouldValidate: true })}
                 options={{
                     previewRender: () => {
@@ -79,16 +75,19 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
                 }}
             />
             <Label>Mô tả ngắn</Label>
-            <Input {...register("excerpt", { required: true })} placeholder="Mô tả ngắn" />
+            <Input
+                value={watch("excerpt") || ""}
+                {...register("excerpt", { required: true })}
+                placeholder="Mô tả ngắn" />
 
             <Label>Trạng thái</Label>
-            <select {...register("status")} className="w-full p-2 border border-gray-300 rounded-md">
+            <select {...register("status")} className="w-full p-2 border border-gray-300 rounded-md" value={watch("status") || "draft"}>
                 <option value="published">Công khai</option>
                 <option value="draft">Nháp</option>
             </select>
 
             <Label>Danh mục</Label>
-            <select {...register("categoryId")} className="w-full p-2 border border-gray-300 rounded-md">
+            <select {...register("categoryId")} className="w-full p-2 border border-gray-300 rounded-md" value={watch("categoryId") || ""}>
                 <option value="" disabled>Chọn danh mục</option>
                 {categories.map((cat) => (
                     <option key={cat._id} value={cat._id}>{cat.name}</option>
