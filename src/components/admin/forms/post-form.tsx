@@ -11,17 +11,16 @@ import { toast } from "sonner";
 import { useUpload } from "@/hooks/data";
 import { useCategories } from "@/hooks/data";
 import ImageUpload from "@/components/admin/upload/image-upload";
-import { CreatePostRequest } from "@/shared/types/post";
+import { CreatePostRequest, UpdatePostRequest } from "@/shared/types/post";
 import "easymde/dist/easymde.min.css";
 import MarkdownPreview from "@/components/admin/markdown-preview";
 const SimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import ReactDOMServer from "react-dom/server";
 
 interface PostFormProps {
-    initialData?: CreatePostRequest;
-    onSubmit: (data: CreatePostRequest) => void;
+    initialData?: Partial<CreatePostRequest>
+    onSubmit: (data: CreatePostRequest | UpdatePostRequest) => void;
 }
-
 export function PostForm({ initialData, onSubmit }: PostFormProps) {
     const router = useRouter();
     const { uploadThumbnail } = useUpload();
@@ -31,7 +30,6 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
 
     useEffect(() => {
         if (initialData && Object.keys(initialData).length > 0) {
-            console.log("Resetting form with initial data", initialData); // Debug print
             reset(initialData);
         }
     }, [initialData, reset]);
@@ -70,7 +68,6 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
                             <MarkdownPreview content={watch("content") || ""} />
                         );
                     },
-                    autofocus: true,
                     spellChecker: false
                 }}
             />

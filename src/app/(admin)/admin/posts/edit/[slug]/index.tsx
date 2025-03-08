@@ -12,10 +12,10 @@ export function EditPostPage() {
     const router = useRouter();
     const { slug } = useParams();
     const [post, setPost] = useState<Post | null>(null);
-    const { data, isLoading, error } = useFetch<GetPostResponse>({
-        url: `/posts/${slug}`,
-    });
 
+    const { data, isLoading, error } = useFetch<GetPostResponse>({
+        entity: `posts/${slug}`,
+    });
 
     useEffect(() => {
         if (data?.data?.post) {
@@ -23,10 +23,8 @@ export function EditPostPage() {
         }
     }, [data]);
 
-
-
     const mutation = useMutationFetch({
-        url: `/posts/${slug}`,
+        url: post ? `/posts/${post._id}` : "",
         method: "PUT",
         options: {
             onSuccess: () => {
@@ -38,6 +36,7 @@ export function EditPostPage() {
             },
         },
     });
+
 
     if (isLoading) return <p>Đang tải bài viết...</p>;
     if (error) return <p className="text-red-500">Lỗi: {error.message}</p>;

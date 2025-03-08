@@ -9,9 +9,12 @@ import QuoteReflection from './quote-reflection';
 
 const QuoteOfTheDay = () => {
     const { data } = useFetch<{ data: Quote }>({
-        url: "/quotes/get-qotd"
+        entity: "quotes",
+        path: "get-qotd",
+        options: {
+            queryKey: ["quotes", "get-qotd"],
+        },
     });
-
     const quote = data?.data;
 
     return (

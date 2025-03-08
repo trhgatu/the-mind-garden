@@ -13,7 +13,10 @@ export function PostsPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const { data, isLoading, isError } = useFetch<{ data: Post[]; meta: { pagination: { totalPages: number } } }>({
-        url: `/posts?page=${currentPage}&limit=7`,
+        entity: `posts?page=${currentPage}&limit=7`,
+        options: {
+            queryKey: ["posts", currentPage],
+        },
     });
 
     const posts: Post[] = data?.data ?? [];
@@ -37,7 +40,7 @@ export function PostsPage() {
         <main>
             <header className="flex h-16 shrink-0 justify-between items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
                 <Breadcrumbs items={[{ label: "Admin", href: "/admin/dashboard" }, { label: "Quản lý bài viết" }]} />
-                <CreatePostButton/>
+                <CreatePostButton />
             </header>
             <DataTable columns={columns} data={posts} totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
         </main>

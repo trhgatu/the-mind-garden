@@ -1,7 +1,7 @@
 import { Category } from "@/shared/types/category";
 
 export interface Post {
-  id: string;
+  _id: string;
   authorId?: string | null;
   categoryId: Category;
   isAI: boolean;
@@ -53,4 +53,29 @@ export interface CreatePostResponse {
   success: boolean;
   message: string;
   post: Post;
+}
+
+export interface UpdatePostRequest {
+  title?: string;
+  content?: string;
+  thumbnail?: string;
+  excerpt?: string;
+  categoryId?: string;
+  tags?: string[];
+  status?: "published" | "draft";
+  location?: string;
+  feeling?: string;
+  isAI?: boolean;
+}
+
+export interface UpdatePostResponse {
+  success: boolean;
+  message: string;
+  post: Post;
+}
+
+export interface DeletPostResponse {
+  success: boolean;
+  message: string;
+  post:Post
 }

@@ -1,16 +1,17 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { api } from "@/shared/utils/api";
+import { api } from "@/shared/utils";
 
 interface UseFetchProps<TResponse> {
-  url: string;
+  entity: string;
+  path?: string;
   options?: UseQueryOptions<TResponse, Error>;
 }
 
-export function useFetch<TResponse>({ url, options }: UseFetchProps<TResponse>) {
+export function useFetch<TResponse>({ entity, path = "", options }: UseFetchProps<TResponse>) {
   return useQuery<TResponse, Error>({
-    queryKey: [url],
+    queryKey: [entity, path, ...(options?.queryKey ?? [])].filter(Boolean),
     queryFn: async () => {
-      const response = await api.get<TResponse>(url);
+      const response = await api.get<TResponse>(`/${entity}/${path}`);
       return response.data;
     },
     ...options,

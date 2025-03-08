@@ -8,7 +8,6 @@ import { toast } from "sonner";
 export function CreatePostPage()
 {
     const router = useRouter();
-
     const mutation = useMutationFetch({
         url: "/posts/create",
         method: "POST",

@@ -1,13 +1,16 @@
 import { useFetch } from "@/shared/hooks";
 
 export function useCategories() {
-    const { data = { categories: [] }, isLoading, error } = useFetch<{ categories: { _id: string; name: string }[] }>({
-        url: "/categories",
+    const { data, isLoading, isError } = useFetch<{ categories: { _id: string; name: string }[] }>({
+        entity: "categories",
+        options: {
+            queryKey: ["categories"],
+        },
     });
 
     return {
-        categories: data.categories,
+        categories: data?.categories ?? [],
         isLoading,
-        error,
+        isError,
     };
 }

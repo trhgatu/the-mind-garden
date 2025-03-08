@@ -9,7 +9,6 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
     const thumbnail = post.thumbnail;
-    console.log(thumbnail)
     if (!post) {
         return null;
     }
