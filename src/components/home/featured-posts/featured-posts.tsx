@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useFetch } from "@/shared/hooks";
 import { Post } from "@/shared/types/post";
-import Image from "next/image";
 import { playfairDisPlay } from "@/shared/fonts/fonts";
 
 import {
@@ -13,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { FeaturedPostCard } from "@/components/post/post-card";
 
 const FeaturedPosts = () => {
   const { data, isLoading, isError } = useFetch<{ data: Post[]; meta: { pagination: { totalPages: number } } }>({
@@ -45,31 +44,7 @@ const FeaturedPosts = () => {
             <CarouselContent className="-ml-1">
               {posts?.map((post) => (
                 <CarouselItem key={post.slug} className="pl-1 md:basis-1/4">
-                  <Link
-                    href={`/post/${post.slug}`}
-                  >
-                    <div className="overflow-hidden transition-all duration-300">
-                      <div className="p-4">
-
-                        <Image
-                          src={post?.thumbnail || "https://dummyimage.com/600x400/d9d9d9/fff&text=%E1%BA%A2nh+kh%C3%B4ng+t%E1%BB%93n+t%E1%BA%A1i"}
-                          alt={post?.title || "Hình ảnh bài viết"}
-                          width={600}
-                          height={300}
-                          className="w-full h-52 object-cover rounded-md mb-3"
-                        />
-
-
-                        <h3 className="text-lg font-semibold text-textPrimary truncate">
-                          {post?.title}
-                        </h3>
-
-                        <p className="text-textSecondary text-sm line-clamp-3">
-                          {post?.excerpt || "Không có mô tả."}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
+                  <FeaturedPostCard key={post._id} post={post}/>
                 </CarouselItem>
               ))}
             </CarouselContent>

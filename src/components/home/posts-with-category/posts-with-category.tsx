@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { playfairDisPlay } from "@/shared/fonts/fonts";
 import { useFetch } from "@/shared/hooks";
 import { Post, Category } from "@/shared/types";
-import { PostCard } from "@/components/post/post-card/post-card";
+import { PostCardWithCategories } from "@/components/post/post-card";
 import { SkeletonCard } from "@/components/post/post-card/post-skeleton-card";
 
 export function PostsWithCategories() {
@@ -59,7 +59,7 @@ export function PostsWithCategories() {
                                         Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
                                     ) : (
                                         fetchedPosts?.length > 0 ? (
-                                            fetchedPosts?.map((post) => <PostCard key={post._id} post={post} />)
+                                            fetchedPosts?.map((post) => <PostCardWithCategories key={post._id} post={post} />)
                                         ) : (
                                             <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
                                         )
