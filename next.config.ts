@@ -27,6 +27,11 @@ const nextConfig: NextConfig = {
         hostname: "cmotqldfmxiwnbjyksmg.supabase.co",
         pathname: "/storage/v1/object/public/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "optim.tildacdn.pub",
+        pathname: "/**"
+      }
     ],
   },
 };
