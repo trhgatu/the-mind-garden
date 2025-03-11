@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { lora } from "@/shared/fonts/fonts";
 
@@ -8,39 +7,26 @@ interface QuoteReflectionProps {
 
 const QuoteReflection = ({ reflection }: QuoteReflectionProps) => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-            <div className="relative w-full">
-                <div className="relative md:w-[500px]">
-                    <Image
-                        src="https://optim.tildacdn.pub/tild3463-6165-4834-b661-346363303337/-/resize/664x/-/format/webp/image-from-rawpixel-.png"
-                        alt="Decorative image"
-                        objectFit="cover"
-                        quality={100}
-                        width={600}
-                        height={300}
-                        sizes="100vw"
-                        style={{
-                          objectFit: 'cover',
-                        }}
-                        className="relative"
-                    />
-                </div>
-                <div className="absolute md:w-[350px] w-[280px] top-1/3 left-1/6">
+        <div className="relative w-full flex justify-center items-center">
+            <div className="relative md:w-[500px]">
+                <Image
+                    src="/assets/images/reflection.png"
+                    alt="Decorative image"
+                    width={600}
+                    height={300}
+                    quality={100}
+                    className="w-full h-auto object-cover"
+                />
+                {/* Text content overlay */}
+                <div className="absolute inset-0 flex items-center justify-center p-6">
                     <p
-                        className={`md:text-xl font-medium ${lora.className} tracking-wide text-primary leading-relaxed`}
+                        className={`md:text-xl text-base w-[250px] md:w-[350px] font-medium ${lora.className} tracking-wide text-primary leading-relaxed text-center`}
                     >
                         {reflection}
                     </p>
                 </div>
             </div>
-
-            {/* Text content */}
-
-        </motion.div>
+        </div>
     );
 };
 

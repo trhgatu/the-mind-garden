@@ -8,10 +8,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
 :root {
+  --divider-brightness: 0.2;
   --header-height: 70px;
-  --background: oklch(0.98 0.02 85);
+  --background: oklch(0.78 0.06 85);
   --foreground: oklch(0.2 0.05 45);
   --card: oklch(0.95 0.02 85);
   --card-foreground: oklch(0.2 0.05 45);

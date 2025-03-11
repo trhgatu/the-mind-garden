@@ -6,10 +6,16 @@ import { lora } from "@/shared/fonts/fonts";
 import { Sparkle } from "lucide-react";
 import "./hero.scss";
 import { motion } from "framer-motion";
+import { TornPaperDivider } from "@/components/home";
 
 const Hero = () => {
   return (
-    <section className="flex h-screen hero items-center justify-center">
+    <section
+      className="flex min-h-screen items-center justify-center
+             bg-no-repeat bg-center
+             bg-cover
+             bg-[url('/assets/images/hero-background.svg')]"
+    >
       <div className="rounded-md">
         <div className="flex flex-col gap-6 items-center">
           <motion.div
@@ -19,8 +25,8 @@ const Hero = () => {
             className="flex justify-center"
           >
             <DotLottieReact
-              src="https://lottie.host/8daeb668-7431-49ae-98a8-eb775e2dfc52/6prmrBwtfu.lottie"
-              className="w-[350px] md:w-[400px]"
+              src="https://lottie.host/223bf2e2-0b64-4028-b95a-a8f46e27519b/ossLMhMQsm.lottie"
+              className="lottie-animation w-[350px] md:w-[400px]"
               loop
               autoplay
             />
@@ -50,6 +56,7 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      <TornPaperDivider/>
     </section>
   );
 };

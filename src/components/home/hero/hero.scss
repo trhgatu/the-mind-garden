@@ -40,3 +40,10 @@
         opacity: 0.05;
     }
 }
+.lottie-animation {
+    filter: brightness(1);
+}
+
+.dark .lottie-animation {
+    filter: invert(1);
+}

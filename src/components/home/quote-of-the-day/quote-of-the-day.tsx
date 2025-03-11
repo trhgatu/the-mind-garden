@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
+import Image from "next/image";
 import { useFetch } from "@/shared/hooks/useFetch";
 import { Quote } from "@/shared/types/quote";
 import { playfairDisPlay } from "@/shared/fonts/fonts";
-import { motion } from "framer-motion";
 import { Sparkle } from "lucide-react";
-import QuoteContent from './quote-content';
-import QuoteReflection from './quote-reflection';
+import QuoteContent from "./quote-content";
+import QuoteReflection from "./quote-reflection";
 
 const QuoteOfTheDay = () => {
     const { data } = useFetch<{ data: Quote }>({
@@ -19,37 +19,66 @@ const QuoteOfTheDay = () => {
     const quote = data?.data;
 
     return (
-        <div className="relative">
-            <section className="flex flex-col items-center justify-center md:gap-20 gap-10 mx-auto md:max-w-7xl">
+        <div className="relative bg-[#F0F0F0]">
+            <div className="absolute inset-0 z-0 flex justify-center items-center ">
+                <Image
+                    src="/assets/images/Layer_1.svg"
+                    alt="Overlay image"
+                    width={600}
+                    height={200}
+                    quality={100}
+                    className="object-cover opacity-70"
+                />
+            </div>
+
+            <section className="relative pb-20 z-10 flex flex-col items-center gap-10 mx-auto md:max-w-7xl">
                 <div className="flex flex-col items-center md:mt-20 mt-10 gap-6">
-                    <p className={`${playfairDisPlay.className} font-bold md:text-6xl text-3xl text-center text-primary tracking-wide`}>
+                    <p className={`${playfairDisPlay.className} dark:text-black font-bold md:text-6xl text-4xl text-center tracking-wide`}>
                         Quote of the day
                     </p>
                     <div className="relative flex items-center justify-center w-full max-w-lg">
-                        <div className="w-full border-t-2 border-accent-foreground opacity-50"></div>
-                        <Sparkle className="absolute bg-background text-accent-foreground p-1 rounded-full w-8 h-8" />
+                        <div className="flex-grow border-t border-3 border-black"></div>
+                        <span className="mx-4 text-5xl animate-pulse">
+                            <Sparkle className="text-black" />
+                        </span>
+                        <div className="flex-grow border-t border-3 border-black"></div>
                     </div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="flex flex-col md:flex-row items-center justify-center gap-8"
-                >
+                <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div className="w-full relative">
+                        <div className="relative w-full flex justify-center items-center">
+                            <Image
+                                src="/assets/images/qotd.png"
+                                alt="Decorative image"
+                                width={600}
+                                height={300}
+                                quality={100}
+                                className="w-full"
+                            />
+                            <QuoteContent
+                                quote={quote || {
+                                    title: "Nếu hôm nay là một trang sách mới, bạn sẽ viết gì lên đó?",
+                                    text: "Loading...",
+                                    author: "",
+                                }}
+                            />
+                        </div>
+                    </div>
                     <QuoteReflection reflection={quote?.reflection || ""} />
-                    <QuoteContent
-                        quote={quote || {
-                            title: "Nếu hôm nay là một trang sách mới, bạn sẽ viết gì lên đó?",
-                            text: "Loading...",
-                            author: ""
-                        }} />
+                </div>
 
-                </motion.div>
             </section>
+            <div className="relative w-full flex justify-center">
+                <Image
+                    src="/assets/images/texture-divider.svg"
+                    alt="Divider"
+                    width={1200}
+                    height={300}
+                    className="w-full brightness-50"
+                />
+            </div>
         </div>
     );
 };
-
 export default QuoteOfTheDay;

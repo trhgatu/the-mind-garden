@@ -7,7 +7,6 @@ export function HomePage() {
     return (
         <>
             <Hero />
-
             <QuoteOfTheDay />
             <FeaturedPosts />
             <PostsWithCategories/>

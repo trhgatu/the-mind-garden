@@ -35,9 +35,9 @@ export function PostsWithCategories() {
     }, [categories]);
 
     return (
-        <div className="pb-12">
+        <div className="pb-12 ">
             <div className="max-w-full mx-auto">
-                <div className="md:max-w-7xl mx-auto">
+                <div className="md:max-w-7xl py-20 mx-auto">
                     <p className={`relative text-3xl px-4 ${playfairDisPlay.className} font-bold text-primary text-left mb-6 after:block after:w-20 after:h-[3px] after:bg-primary after:mt-2`}>
                         Theo danh mục.
                     </p>
