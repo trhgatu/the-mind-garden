@@ -35,40 +35,45 @@ export function PostsWithCategories() {
     }, [categories]);
 
     return (
-        <div className="pb-12 ">
-            <div className="max-w-full mx-auto">
-                <div className="md:max-w-7xl py-20 mx-auto">
-                    <p className={`relative text-3xl px-4 ${playfairDisPlay.className} font-bold text-primary text-left mb-6 after:block after:w-20 after:h-[3px] after:bg-primary after:mt-2`}>
-                        Theo danh mục.
-                    </p>
-                    <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full p-4">
-                        <div className="flex justify-center">
-                            <TabsList className="grid grid-cols-4 gap-4">
-                                {categories?.map((category) => (
-                                    <TabsTrigger key={category._id} value={category._id}>
-                                        {category.name}
-                                    </TabsTrigger>
-                                ))}
-                            </TabsList>
-                        </div>
+        <div className="max-w-full mx-auto">
+            <div className="md:max-w-7xl mx-auto">
+                <p className={`relative text-3xl px-4 ${playfairDisPlay.className} font-bold text-primary text-left mb-6 after:block after:w-20 after:h-[3px] after:bg-primary after:mt-2`}>
+                    Theo danh mục.
+                </p>
+                <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full p-4">
+                    <div className="flex justify-center">
+                        <TabsList className="grid grid-cols-4 gap-4">
+                            {categories?.map((category) => (
+                                <TabsTrigger key={category._id} value={category._id}>
+                                    {category.name}
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+                    </div>
 
-                        {categories?.map((category) => (
-                            <TabsContent className="mt-4" key={category._id} value={category._id}>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {isLoading ? (
-                                        Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
+                    {categories?.map((category) => (
+                        <TabsContent className="mt-4" key={category._id} value={category._id}>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {isLoading ? (
+                                    Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
+                                ) : (
+                                    fetchedPosts?.length > 0 ? (
+                                        fetchedPosts?.map((post) => (
+                                            <div key={post._id} className="relative">
+                                                <div className="transform transition-transform hover:scale-[1.02] hover:rotate-1 duration-300 rounded-lg overflow-hidden shadow-md border-2 border-[#e8d9c0]">
+                                                    <div className="absolute top-0 left-0 w-full h-full opacity-15 pointer-events-none sepia-[0.3]"></div>
+                                                    <PostCardWithCategories post={post} />
+                                                </div>
+                                            </div>
+                                        ))
                                     ) : (
-                                        fetchedPosts?.length > 0 ? (
-                                            fetchedPosts?.map((post) => <PostCardWithCategories key={post._id} post={post} />)
-                                        ) : (
-                                            <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
-                                        )
-                                    )}
-                                </div>
-                            </TabsContent>
-                        ))}
-                    </Tabs>
-                </div>
+                                        <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
+                                    )
+                                )}
+                            </div>
+                        </TabsContent>
+                    ))}
+                </Tabs>
             </div>
         </div>
     );

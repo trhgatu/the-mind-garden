@@ -29,6 +29,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface GetPostResponse {
   success: boolean;
   data: {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { ModeToggle } from "@/shared/components/toggle-theme";
 import { motion, AnimatePresence } from "framer-motion";
-import { quintessential } from "@/shared/fonts/fonts";
+import { lora, quintessential } from "@/shared/fonts/fonts";
 
 export function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -92,7 +92,7 @@ export function Header() {
                     key={path}
                     href={path}
                   >
-                    <span className="relative z-10 transition-colors duration-300">
+                    <span className={`relative z-10 transition-colors duration-300 ${lora.className}`}>
                       {label}
                     </span>
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>

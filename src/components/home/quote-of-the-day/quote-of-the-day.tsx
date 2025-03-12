@@ -19,7 +19,7 @@ const QuoteOfTheDay = () => {
     const quote = data?.data;
 
     return (
-        <div className="relative bg-[#F0F0F0]">
+        <div className="relative bg-[#F0F0F0] bg-[url(/assets/images/Noise__Texture_2.svg)]">
             <div className="absolute inset-0 z-0 flex justify-center items-center ">
                 <Image
                     src="/assets/images/Layer_1.svg"
