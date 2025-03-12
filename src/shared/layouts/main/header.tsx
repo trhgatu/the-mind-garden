@@ -97,8 +97,15 @@ export function Header() {
                     </span>
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
                   </Link>
+
                 ))}
               </ul>
+              <li>
+                <Link href="/login" className="px-4 py-2 text-sm font-medium text-white bg-[#7B3F01] rounded-lg hover:bg-opacity-90 transition">Đăng nhập</Link>
+              </li>
+              <li>
+                <Link href="/register" className="px-4 py-2 text-sm font-medium text-[#7B3F01] border border-[#7B3F01] rounded-lg hover:bg-[#7B3F01] hover:text-white transition">Đăng ký</Link>
+              </li>
               <li><ModeToggle /></li>
             </ul>
           </nav>
@@ -184,16 +191,21 @@ export function Header() {
 
                   <div className="flex-1 py-8 px-6 overflow-y-auto dark:bg-[#202020] bg-white">
                     <div className="space-y-1">
-                      {["Trang chủ", "Liên hệ"].map((section) => (
+                      {[{ label: "Trang chủ", path: "/home" },
+                      { label: "Đăng nhập", path: "/login" },
+                      { label: "Đăng ký", path: "/register" },
+                      { label: "Liên hệ", path: "/contact" },
+                      { label: "Tác giả", path: "/author" }].map(({ label, path }) => (
                         <Link
-                          key={section}
-                          href={`/${section === "Trang chủ" ? "home" : "contact"}`}
+                          key={path}
+                          href={path}
                           className="w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 flex items-center"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <span className="text-lg font-medium">{section}</span>
+                          <span className="text-lg font-medium">{label}</span>
                         </Link>
                       ))}
+
                     </div>
                     <div
                       className="mt-8 pt-6 border-t border-border"
