@@ -11,7 +11,7 @@ import { TornPaperDivider } from "@/components/home";
 const Hero = () => {
   return (
     <section
-      className="flex min-h-screen items-center justify-center
+      className="relative flex h-screen items-center justify-center
              bg-no-repeat bg-center
              bg-cover
              bg-[url('/assets/images/hero-background.svg')]"
@@ -26,7 +26,7 @@ const Hero = () => {
           >
             <DotLottieReact
               src="https://lottie.host/223bf2e2-0b64-4028-b95a-a8f46e27519b/ossLMhMQsm.lottie"
-              className="lottie-animation w-[350px] md:w-[400px]"
+              className="lottie-animation w-[250px] sm:w-[350px] md:w-[400px]"
               loop
               autoplay
             />
@@ -38,25 +38,25 @@ const Hero = () => {
             className="relative text-center"
           >
             <h1
-              className={`md:text-7xl text-5xl font-bold ${quintessential.className} `}
+              className={`text-4xl sm:text-5xl md:text-7xl font-bold ${quintessential.className}`}
             >
               The Mind Garden.
             </h1>
             <div className="relative flex items-center my-8">
               <div className="flex-grow border-t border-2 border-accent-foreground"></div>
-              <span className="mx-4 text-5xl animate-pulse">
+              <span className="mx-4 text-3xl sm:text-5xl animate-pulse">
                 <Sparkle />
               </span>
               <div className="flex-grow border-t border-2 border-accent-foreground"></div>
             </div>
 
-            <p className={`mt-4 text-lg sm:text-xl ${lora.className}`}>
+            <p className={`mt-4 text-base sm:text-lg md:text-xl ${lora.className}`}>
               Mỗi câu chữ là một hạt giống của tâm hồn.
             </p>
           </motion.div>
         </div>
       </div>
-      <TornPaperDivider/>
+      <TornPaperDivider />
     </section>
   );
 };

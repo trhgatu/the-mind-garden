@@ -9,10 +9,9 @@ export function GridPostCard({ post }: GridPostCardProps) {
     return (
         <BasePostCard
             post={post}
-            className="bg-white border border-gray-200"
             imageClassName="w-full h-56"
-            titleClassName="text-xl font-bold"
-            excerptClassName="text-base"
+            titleClassName="text-xl line-clamp-2 font-bold"
+            excerptClassName="text-base line-clamp-2"
         />
     );
 }

@@ -27,8 +27,10 @@ const QuoteOfTheDay = () => {
                     width={600}
                     height={200}
                     quality={100}
-                    className="object-cover opacity-70"
+                    className="object-cover"
                 />
+                <div className="absolute inset-0 z-0 flex justify-center items-center ">
+                </div>
             </div>
 
             <section className="relative pb-20 z-10 flex flex-col items-center gap-10 mx-auto md:max-w-7xl">
@@ -56,6 +58,7 @@ const QuoteOfTheDay = () => {
                                 quality={100}
                                 className="w-full"
                             />
+
                             <QuoteContent
                                 quote={quote || {
                                     title: "Nếu hôm nay là một trang sách mới, bạn sẽ viết gì lên đó?",
@@ -63,6 +66,7 @@ const QuoteOfTheDay = () => {
                                     author: "",
                                 }}
                             />
+
                         </div>
                     </div>
                     <QuoteReflection reflection={quote?.reflection || ""} />
