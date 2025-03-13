@@ -6,19 +6,15 @@ const authPaths = ['/register', '/login', '/forgot-password']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const cookieHeader = request.headers.get("cookie") || "";
-  const sessionToken = cookieHeader
-    .split("; ")
-    .find((row) => row.startsWith("sessionToken="))
-    ?.split("=")[1];
-
-
+  const sessionToken = request.cookies.get("sessionToken")?.value;
+  console.log("Middleware path:", pathname);
+  console.log("Middleware sessionToken:", sessionToken);
   if (privatePaths.some((path) => pathname.startsWith(path)) && !sessionToken) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/login', request.url), { status: 307 })
   }
 
   if (authPaths.some((path) => pathname.startsWith(path)) && sessionToken) {
-    return NextResponse.redirect(new URL('/home', request.url))
+    return NextResponse.redirect(new URL('/home', request.url), { status: 307 })
   }
   return NextResponse.next()
 }
