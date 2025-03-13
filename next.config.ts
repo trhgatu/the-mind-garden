@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       }
     ];
   },
+  experimental: {
+    nodeMiddleware: true,
+  },
   images: {
     remotePatterns: [
       {
