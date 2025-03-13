@@ -20,7 +20,7 @@ export function NewPostCard({
 
   const thumbnail = post.thumbnail || "https://dummyimage.com/600x400/d9d9d9/fff&text=%E1%BA%A2nh+kh%C3%B4ng+t%E1%BB%93n+t%E1%BA%A1i";
   return (
-    <div className={`group transform transition-transform hover:scale-[1.02] hover:rotate-1 rounded-lg overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 relative ${className} shadow-md hover:shadow-lg`}>
+    <div className={`group transform transition-transform hover:scale-[1.02] hover:rotate-1 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 relative ${className} shadow-md hover:shadow-lg`}>
       <Link href={`/post/${post.slug}`} className="flex flex-row h-full">
         <div className="relative w-1/3 min-h-full overflow-hidden">
           <div className="absolute inset-0">

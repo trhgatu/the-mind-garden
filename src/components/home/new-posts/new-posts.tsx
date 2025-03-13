@@ -30,28 +30,17 @@ export function NewsPosts({
 
     return (
         <div className="relative bg-[url(/assets/images/Noise__Texture_2.svg)]">
-            <div className="absolute bottom-0 left-0 w-full -z-1">
+            <div className="absolute hidden md:flex bottom-0 left-0 w-full -z-1">
                 <Image
                     src="/assets/images/texture-background.png"
                     alt="Texture Background"
                     width={1920}
                     height={1080}
-                    className="w-full object-cover opacity-35"
+                    className="w-full object-cover opacity-60"
                     priority
                 />
             </div>
-            <div className={`w-full py-12 px-4 relative ${className}`}>
-                <div className="absolute bottom-0 right-0 z-0">
-                    <Image
-                        src="/assets/images/castle.png"
-                        alt="Castle"
-                        width={700}
-                        height={1280}
-                        className="object-cover opacity-75"
-                    />
-                </div>
-
-
+            <div className={`w-full py-10 md:py-24 px-10 relative ${className}`}>
                 <div className="flex flex-col gap-10 md:gap-14 relative z-10">
                     <div className="flex flex-col items-center gap-6">
                         <p className={`${playfairDisPlay.className} font-bold text-black dark:text-white md:text-6xl text-4xl text-center tracking-wide`}>
@@ -78,50 +67,59 @@ export function NewsPosts({
                             </div>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-6 gap-16">
                             <div className="lg:col-span-3 relative">
-                                <div className="absolute inset-0 z-0">
-                                    <Image
-                                        src="/assets/images/reflection.png"
-                                        alt="Letter background"
-                                        width={1280}
-                                        height={800}
-                                        className="object-cover h-full w-full"
-                                    />
-                                </div>
-                                <div className="relative w-full h-full">
+                                <div className="relative w-full h-full bg-[url('/assets/background/letter-texture.png')] bg-cover ">
                                     {featuredPost ? (
-                                        <div className="relative z-10 h-full flex flex-col justify-center p-6">
-                                            <Link href={`/post/${featuredPost.slug}`} className="block px-8 md:px-16">
-                                                <div className="flex">
-                                                    <div className="pr-4">
-                                                        <h3 className={`${lora.className} dark:text-black text-2xl font-bold mb-2 hover:text-[#a83240] transition-colors duration-300 text-center`}>
-                                                            {featuredPost.title}
-                                                        </h3>
-                                                        <p className="mb-3 line-clamp-4 mx-auto dark:text-black max-w-lg">
-                                                            {featuredPost.excerpt}
-                                                        </p>
-                                                    </div>
-                                                    {featuredPost.thumbnail && (
-                                                        <div className="relative h-44 flex justify-center overflow-hidden border-2 border-gray-200">
-                                                            <Image
-                                                                src={featuredPost.thumbnail}
-                                                                alt={featuredPost.title}
-                                                                width={300}
-                                                                height={300}
-                                                                className="object-cover"
-                                                            />
-                                                        </div>
-                                                    )}
+                                        <div className="relative z-10 bg-[url(/assets/images/grunge-concrete-material-background-texture-wall-concept.jpg)] bg-cover bg-center bg-no-repeat -rotate-6 h-full flex flex-col group transform transition-transform hover:scale-[1.02] hover:rotate-0 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 hover:shadow-lg p-6">
+                                            <Link href={`/post/${featuredPost.slug}`} className="block">
+                                                <div className="pt-4 text-left">
+                                                    <h3 className={`${lora.className} dark:text-black text-2xl font-bold mb-2 hover:text-[#a83240] transition-colors duration-300`}>
+                                                        {featuredPost.title}
+                                                    </h3>
                                                 </div>
+                                                {/* {featuredPost.thumbnail && (
+                                                    <div className="relative w-full h-36 flex justify-center overflow-hidden">
+                                                        <Image
+                                                            src={featuredPost.thumbnail}
+                                                            alt={featuredPost.title}
+                                                            width={500}
+                                                            height={300}
+                                                            className="w-full sepia-50 h-full object-cover"
+                                                        />
+                                                    </div>
+                                                )} */}
 
+                                                <div className="text-left">
+                                                    <h3 className={`${lora.className} dark:text-black mb-2 hover:text-[#a83240] transition-colors duration-300`}>
+                                                        {featuredPost.content}
+                                                    </h3>
+                                                    <p className="text-gray-700 italic dark:text-black line-clamp-3">
+                                                        {featuredPost.excerpt}
+                                                    </p>
+                                                    <div className="mt-6 text-right">
+                                                        <p className="text-[#5a3e2b] font-semibold italic">Sincerely,</p>
+                                                        <p className="text-[#5a3e2b] font-bold">{featuredPost.authorId?.name}</p>
+                                                    </div>
+
+                                                </div>
                                             </Link>
+
                                         </div>
                                     ) : (
                                         <div className="relative z-10 h-full p-6 flex items-center justify-center">
                                             <p className="text-gray-500">Không có bài viết nổi bật</p>
                                         </div>
                                     )}
+                                </div>
+                                <div className="absolute -right-40 top-0 hidden md:block z-10">
+                                    <Image
+                                        src="/assets/images/feather.svg"
+                                        alt="Stamp"
+                                        width={400}
+                                        height={400}
+                                        className="w-full h-full rotate-45 object-cover"
+                                    />
                                 </div>
                             </div>
                             <div className="lg:col-span-3">
@@ -143,15 +141,6 @@ export function NewsPosts({
                             </div>
                         </div>
                     )}
-
-                    <div className="flex justify-center mt-10">
-                        <Link href="/posts" className="px-6 py-2 border border-gray-300 rounded-full transition-colors duration-300 flex items-center">
-                            <span>Xem tất cả</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
-                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </Link>
-                    </div>
                 </div>
             </div>
         </div>

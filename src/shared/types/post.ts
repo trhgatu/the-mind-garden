@@ -1,8 +1,9 @@
 import { Category } from "@/shared/types/category";
+import { User } from "@/shared/types/user";
 
 export interface Post {
   _id: string;
-  authorId?: string | null;
+  authorId?: User;
   categoryId: Category;
   isAI: boolean;
   title: string;
