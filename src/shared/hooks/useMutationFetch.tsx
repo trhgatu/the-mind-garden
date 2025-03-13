@@ -22,6 +22,7 @@ export function useMutationFetch<TRequest, TResponse>({
       const response = await api({
         url,
         method,
+        withCredentials: true,
         data: body,
         ...config,
       });

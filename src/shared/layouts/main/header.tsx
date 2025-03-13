@@ -5,8 +5,15 @@ import { useState, useEffect } from "react";
 import { ModeToggle } from "@/shared/components/toggle-theme";
 import { motion, AnimatePresence } from "framer-motion";
 import { lora, quintessential } from "@/shared/fonts/fonts";
+import { useAuth } from "@/shared/contexts";
 
 export function Header() {
+  const { user, logout } = useAuth();
+  const [currentUser, setCurrentUser] = useState(user);
+
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -100,12 +107,18 @@ export function Header() {
 
                 ))}
               </ul>
-              <li>
-                <Link href="/login" className="px-4 py-2 text-sm font-medium text-white bg-[#7B3F01] rounded-lg hover:bg-opacity-90 transition">Đăng nhập</Link>
-              </li>
-              <li>
-                <Link href="/register" className="px-4 py-2 text-sm font-medium text-[#7B3F01] border border-[#7B3F01] rounded-lg hover:bg-[#7B3F01] hover:text-white transition">Đăng ký</Link>
-              </li>
+              {currentUser ? (
+                <>
+                  <Link href="/profile">Hồ sơ</Link>
+                  <button onClick={logout} className="text-red-500">Đăng xuất</button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login">Đăng nhập</Link>
+                  <Link href="/register">Đăng ký</Link>
+                </>
+              )}
+
               <li><ModeToggle /></li>
             </ul>
           </nav>

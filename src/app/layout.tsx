@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "./globals.css";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/shared/contexts";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const queryClient = useMemo(() => new QueryClient(), []);
@@ -17,9 +18,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${inter.className} font-base antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <QueryClientProvider client={queryClient}>
-            {children}
-            <Toaster/>
-            <ReactQueryDevtools initialIsOpen={false} />
+            <AuthProvider>
+              {children}
+              <Toaster />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </AuthProvider>
           </QueryClientProvider>
         </ThemeProvider>
       </body>

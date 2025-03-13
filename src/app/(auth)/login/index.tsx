@@ -1,10 +1,44 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useMutationFetch } from "@/shared/hooks";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+interface LoginResponse {
+    token: string;
+}
 
 export function LoginPage() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
+
+    const mutation = useMutationFetch<{ email: string; password: string }, LoginResponse>({
+        url: "/auth/login",
+        method: "POST",
+        options: {
+            onSuccess: (data) => {
+                localStorage.setItem("token", data.token);
+                toast.success("Đăng nhập thành công!");
+                router.push("/home");
+            },
+            onError: (error) => {
+                toast.error(error.message || "Lỗi khi đăng nhập!");
+            },
+        },
+    });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        mutation.mutate({ email, password });
+    };
+
     return (
         <Card className="w-full border-0 bg-background max-w-md">
             <CardHeader>
@@ -13,15 +47,25 @@ export function LoginPage() {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block font-medium mb-2">Email</label>
-                        <Input type="email" placeholder="Enter your email" />
+                        <Input
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
 
                     <div className="mb-4">
                         <label className="block font-medium mb-2">Mật khẩu</label>
-                        <Input type="password" placeholder="Enter your password" />
+                        <Input
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
 
                     <div className="flex justify-between items-center mb-4">
@@ -37,8 +81,9 @@ export function LoginPage() {
                     <Button
                         type="submit"
                         className="w-full bg-red-600 text-white hover:bg-red-700"
+                        disabled={mutation.isPending}
                     >
-                        Đăng nhập
+                        {mutation.isPending ? "Đang đăng nhập..." : "Đăng nhập"}
                     </Button>
                 </form>
 
