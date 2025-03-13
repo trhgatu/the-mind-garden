@@ -6,7 +6,7 @@ const authPaths = ['/register', '/login', '/forgot-password']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionToken = request.cookies.get("sessionToken");
+  const sessionToken = request.cookies.get("sessionToken")?.value ?? null;
 
   console.log("Middleware Path:", pathname);
   console.log("Middleware sessionToken:", sessionToken);
