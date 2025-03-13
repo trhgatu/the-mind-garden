@@ -11,7 +11,7 @@ import { TornPaperDivider } from "@/components/home";
 const Hero = () => {
   return (
     <section
-      className="relative flex h-screen items-center justify-center
+      className="hidden relative md:flex h-screen items-center justify-center
              bg-no-repeat bg-center
              bg-cover
              bg-[url('/assets/images/hero-background.svg')]"

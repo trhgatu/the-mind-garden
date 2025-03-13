@@ -33,7 +33,7 @@ const QuoteOfTheDay = () => {
                 </div>
             </div>
 
-            <section className="relative pb-20 z-10 flex flex-col items-center gap-10 mx-auto md:max-w-7xl">
+            <section className="relative py-20 z-10 flex flex-col items-center gap-10 mx-auto md:max-w-7xl">
                 <div className="flex flex-col items-center md:mt-20 mt-10 gap-6">
                     <p className={`${playfairDisPlay.className} dark:text-black font-bold md:text-6xl text-4xl text-center tracking-wide`}>
                         Quote of the day
