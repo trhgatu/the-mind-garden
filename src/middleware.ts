@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const privatePaths = ['/profile', '/home']
+const privatePaths = ['/profile']
 const authPaths = ['/register', '/login', '/forgot-password']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionToken = request.cookies.get("sessionToken")?.value ?? null;
+  const sessionToken = request.cookies.get('sessionToken')
 
   console.log("Middleware Path:", pathname);
   console.log("Middleware sessionToken:", sessionToken);
