@@ -54,11 +54,11 @@ export function NewPostCard({
         ></div>
 
         {/* Shadow effect along the edges to create depth */}
-        <div className="absolute inset-0 pointer-events-none shadow-inner"
+        {/* <div className="absolute inset-0 pointer-events-none shadow-inner"
           style={{
             boxShadow: 'inset 0 0 15px rgba(0,0,0,0.1), inset 0 0 5px rgba(0,0,0,0.2)'
           }}
-        ></div>
+        ></div> */}
 
         {/* Content area with padding */}
         <div className="p-6 flex flex-col justify-center flex-grow relative">

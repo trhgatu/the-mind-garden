@@ -364,13 +364,6 @@ export function Header() {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Progress indicator for scrolling */}
-      {scrolled && (
-        <div className="h-0.5 bg-gradient-to-r from-[#7B3F01]/70 to-[#7B3F01]/30 dark:from-[#7B3F01]/90 dark:to-[#7B3F01]/50"
-          style={{ width: `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
-        />
-      )}
     </header>
   );
 }
