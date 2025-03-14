@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useMemo } from "react";
-import { inter } from "@/shared/fonts/fonts";
+import { lato } from "@/shared/fonts/fonts";
 import { ThemeProvider } from "@/shared/components/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} font-base antialiased`}>
+      <body className={`${lato.className} font-base antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <QueryClientProvider client={queryClient}>
             <AuthProvider>

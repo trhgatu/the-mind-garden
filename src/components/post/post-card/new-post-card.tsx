@@ -31,7 +31,6 @@ export function NewPostCard({
         boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
       }}
     >
-      {/* Background texture for the sticky note */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -43,7 +42,6 @@ export function NewPostCard({
       />
 
       <Link href={`/post/${post.slug}`} className="flex flex-col h-full relative z-10">
-        {/* Subtle tape at the top of the sticky note */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-5 rounded-b-sm z-10"
           style={{
             backgroundImage: "url('/assets/images/tape_texture.png')",
@@ -53,23 +51,12 @@ export function NewPostCard({
           }}
         ></div>
 
-        {/* Shadow effect along the edges to create depth */}
-        {/* <div className="absolute inset-0 pointer-events-none shadow-inner"
-          style={{
-            boxShadow: 'inset 0 0 15px rgba(0,0,0,0.1), inset 0 0 5px rgba(0,0,0,0.2)'
-          }}
-        ></div> */}
-
-        {/* Content area with padding */}
         <div className="p-6 flex flex-col justify-center flex-grow relative">
-          {/* Ruled lines overlay */}
           <div className="absolute inset-0" style={{
             backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(139,106,74,0.15) 24px, rgba(139,106,74,0.15) 25px)',
             backgroundPosition: '0 1.3rem',
             pointerEvents: 'none'
           }}></div>
-
-          {/* Thumbnail as a small polaroid-style image pinned to the note */}
           <div className="relative w-24 h-24 mb-4 mx-auto overflow-hidden border-4 border-white shadow-md transform rotate-2">
             <Image
               src={thumbnail}

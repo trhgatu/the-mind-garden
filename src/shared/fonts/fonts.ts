@@ -1,4 +1,4 @@
-import { Quintessential, Inter, Lora, Playfair_Display, Mea_Culpa } from "next/font/google";
+import { Quintessential, Inter, Lora, Playfair_Display, Mea_Culpa, Lato } from "next/font/google";
 
 export const quintessential = Quintessential({
   weight: "400",
@@ -16,7 +16,10 @@ export const playfairDisPlay = Playfair_Display({
   subsets: ["latin"],
   display: "swap"
 })
-
+export const lato = Lato({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "100", "300", "700", "900"],
+})
 export const inter = Inter({
   subsets: ["latin"],
   display: "swap",
