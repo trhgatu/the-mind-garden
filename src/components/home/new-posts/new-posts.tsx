@@ -71,25 +71,13 @@ export function NewsPosts({
                             <div className="lg:col-span-3 relative">
                                 <div className="relative w-full h-full bg-[url('/assets/background/letter-texture.png')] bg-cover ">
                                     {featuredPost ? (
-                                        <div className="relative z-10 bg-[url(/assets/images/grunge-concrete-material-background-texture-wall-concept.jpg)] bg-cover bg-center bg-no-repeat -rotate-6 h-full flex flex-col group transform transition-transform hover:scale-[1.02] hover:rotate-0 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 hover:shadow-lg p-6">
+                                        <div className="relative z-10 bg-[url(/assets/images/grunge-concrete-material-background-texture-wall-concept.jpg)] bg-cover bg-center bg-no-repeat -rotate-6 h-full flex flex-col group transform transition-transform hover:scale-[1.02] hover:rotate-0 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 hover:shadow-lg p-6 md:p-10">
                                             <Link href={`/post/${featuredPost.slug}`} className="block">
                                                 <div className="pt-4 text-left">
                                                     <h3 className={`${lora.className} dark:text-black text-2xl font-bold mb-2 hover:text-[#a83240] transition-colors duration-300`}>
                                                         {featuredPost.title}
                                                     </h3>
                                                 </div>
-                                                {/* {featuredPost.thumbnail && (
-                                                    <div className="relative w-full h-36 flex justify-center overflow-hidden">
-                                                        <Image
-                                                            src={featuredPost.thumbnail}
-                                                            alt={featuredPost.title}
-                                                            width={500}
-                                                            height={300}
-                                                            className="w-full sepia-50 h-full object-cover"
-                                                        />
-                                                    </div>
-                                                )} */}
-
                                                 <div className="text-left">
                                                     <h3 className={`${lora.className} dark:text-black mb-2 hover:text-[#a83240] transition-colors duration-300`}>
                                                         {featuredPost.content}
@@ -97,7 +85,7 @@ export function NewsPosts({
                                                     <p className="text-gray-700 italic dark:text-black line-clamp-3">
                                                         {featuredPost.excerpt}
                                                     </p>
-                                                    <div className="mt-6 text-right">
+                                                    <div className="mt-6 text-left">
                                                         <p className="text-[#5a3e2b] font-semibold italic">Sincerely,</p>
                                                         <p className="text-[#5a3e2b] font-bold">{featuredPost.authorId?.name}</p>
                                                     </div>
@@ -112,13 +100,13 @@ export function NewsPosts({
                                         </div>
                                     )}
                                 </div>
-                                <div className="absolute -right-40 top-0 hidden md:block z-10">
+                                <div className="absolute -right-40 bottom-0 hidden md:block z-10">
                                     <Image
-                                        src="/assets/images/feather.svg"
+                                        src="/assets/images/flower-decor.png"
                                         alt="Stamp"
                                         width={400}
                                         height={400}
-                                        className="w-full h-full rotate-45 object-cover"
+                                        className="w-full h-full rotate-12 object-cover"
                                     />
                                 </div>
                             </div>
