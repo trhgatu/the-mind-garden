@@ -1,6 +1,6 @@
 import { api } from "@/shared/utils/api";
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosRequestConfig } from "axios";
 
 type FetchMethod = "POST" | "PUT" | "DELETE";
 
@@ -8,7 +8,7 @@ interface UseMutationFetchProps<TRequest, TResponse> {
   url: string;
   method: FetchMethod;
   config?: AxiosRequestConfig;
-  options?: UseMutationOptions<TResponse, Error, TRequest>;
+  options?: UseMutationOptions<TResponse, AxiosError, TRequest>;
 }
 
 export function useMutationFetch<TRequest, TResponse>({
@@ -17,7 +17,7 @@ export function useMutationFetch<TRequest, TResponse>({
   config,
   options,
 }: UseMutationFetchProps<TRequest, TResponse>) {
-  return useMutation<TResponse, Error, TRequest>({
+  return useMutation<TResponse, AxiosError, TRequest>({
     mutationFn: async (body: TRequest) => {
       const response = await api({
         url,

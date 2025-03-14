@@ -1,19 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { PATHS } from "@/app/routes";
 import { useState, useEffect } from "react";
 import { ModeToggle } from "@/shared/components/toggle-theme";
 import { motion, AnimatePresence } from "framer-motion";
 import { lora, quintessential } from "@/shared/fonts/fonts";
 import { useAuth } from "@/shared/contexts";
+import { Loading } from "@/shared/components/loading";
 
 export function Header() {
-  const { user, logout } = useAuth();
-  const [currentUser, setCurrentUser] = useState(user);
-
-  useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
+  const { user, isInitializing,logout } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -73,6 +70,10 @@ export function Header() {
       }
     }
   };
+
+  if(isInitializing) {
+      return <Loading variant="book" full/>
+  }
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "transparent backdrop-blur-md shadow-sm" : "transparent"
@@ -82,7 +83,7 @@ export function Header() {
       <div className="py-4">
         <div className="container max-w-5xl mx-auto flex items-center justify-between px-4">
           <div className="flex items-center">
-            <Link href="/home" className={`text-2xl ${quintessential.className} font-bold hover:scale-105 transition-all hover:text-[#7B3F01] duration-100`}>
+            <Link href={PATHS.HOME} className={`text-2xl ${quintessential.className} font-bold hover:scale-105 transition-all hover:text-[#7B3F01] duration-100`}>
               The Mind Garden
             </Link>
           </div>
@@ -107,10 +108,14 @@ export function Header() {
 
                 ))}
               </ul>
-              {currentUser ? (
+              {user ? (
                 <>
-                  <Link href="/profile">Hồ sơ</Link>
-                  <button onClick={logout} className="text-red-500">Đăng xuất</button>
+                  <Link href={`/profile/${user.username}`}>
+                    Hồ sơ {user.username ? `(${user.username})` : ""}
+                  </Link>
+                  <button onClick={logout} className="text-red-500">
+                    Đăng xuất
+                  </button>
                 </>
               ) : (
                 <>
@@ -118,6 +123,8 @@ export function Header() {
                   <Link href="/register">Đăng ký</Link>
                 </>
               )}
+
+
 
               <li><ModeToggle /></li>
             </ul>
@@ -244,6 +251,6 @@ export function Header() {
         </AnimatePresence>
 
       </div>
-    </header>
+    </header >
   );
 }

@@ -1,11 +1,13 @@
 const ROOTS = {
     HOME: '/',
+    PROFILE: '/profile',
     AUTH: '/auth',
     ADMIN: '/admin',
 };
 
 export const PATHS = {
     HOME: ROOTS.HOME,
+    PROFILE: (username: string) => `${ROOTS.PROFILE}/${username}`,
     AUTH: {
         LOGIN: `${ROOTS.AUTH}/login`,
         REGISTER: `${ROOTS.AUTH}/register`,

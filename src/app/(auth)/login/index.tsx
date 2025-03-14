@@ -6,37 +6,25 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useMutationFetch } from "@/shared/hooks";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-
-interface LoginResponse {
-    token: string;
-}
+import { useAuth } from "@/shared/contexts";
+import { Loader2 } from "lucide-react"; // Icon loading
 
 export function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false); // Thêm state loading
+    const { login } = useAuth();
 
-    const mutation = useMutationFetch<{ email: string; password: string }, LoginResponse>({
-        url: "/auth/login",
-        method: "POST",
-        options: {
-            onSuccess: (data) => {
-                localStorage.setItem("token", data.token);
-                toast.success("Đăng nhập thành công!");
-                router.push("/home");
-            },
-            onError: (error) => {
-                toast.error(error.message || "Lỗi khi đăng nhập!");
-            },
-        },
-    });
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        mutation.mutate({ email, password });
+        setIsLoading(true);
+        try {
+            await login({ email, password });
+        } catch (error) {
+            console.error("Login error:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -55,6 +43,7 @@ export function LoginPage() {
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            disabled={isLoading} // Vô hiệu hóa khi đang tải
                         />
                     </div>
 
@@ -65,12 +54,13 @@ export function LoginPage() {
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            disabled={isLoading}
                         />
                     </div>
 
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center gap-2">
-                            <Checkbox id="remember" />
+                            <Checkbox id="remember" disabled={isLoading} />
                             <label htmlFor="remember" className="text-sm">Nhớ tài khoản</label>
                         </div>
                         <Link href="/forgot-password" className="text-red-500 text-sm">
@@ -80,10 +70,16 @@ export function LoginPage() {
 
                     <Button
                         type="submit"
-                        className="w-full bg-red-600 text-white hover:bg-red-700"
-                        disabled={mutation.isPending}
+                        className="w-full bg-red-600 text-white hover:bg-red-700 flex items-center justify-center gap-2"
+                        disabled={isLoading}
                     >
-                        {mutation.isPending ? "Đang đăng nhập..." : "Đăng nhập"}
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="w-4 h-4 animate-spin" /> Đang đăng nhập...
+                            </>
+                        ) : (
+                            "Đăng nhập"
+                        )}
                     </Button>
                 </form>
 
@@ -97,8 +93,8 @@ export function LoginPage() {
                 </div>
 
                 <p className="mt-6 text-center flex items-center justify-center text-gray-700 text-sm">
-                    <span> Không có tài khoản?{" "}</span>
-                    <Link href="/sign-up" className="text-white ml-4 font-medium">Đăng ký</Link>
+                    <span>Không có tài khoản?{" "}</span>
+                    <Link href="/register" className="text-red-500 ml-4 font-medium">Đăng ký</Link>
                 </p>
             </CardContent>
         </Card>
