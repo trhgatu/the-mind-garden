@@ -73,15 +73,6 @@ const QuoteOfTheDay = () => {
                 </div>
 
             </section>
-            <div className="relative w-full flex justify-center">
-                <Image
-                    src="/assets/images/texture-divider.svg"
-                    alt="Divider"
-                    width={1200}
-                    height={300}
-                    className="w-full brightness-50"
-                />
-            </div>
         </div>
     );
 };
