@@ -5,6 +5,8 @@ import { PATHS } from "@/app/routes";
 import { useState, useEffect } from "react";
 import { ModeToggle } from "@/shared/components/toggle-theme";
 import { motion, AnimatePresence } from "framer-motion";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { User as UserIcon, LogOut, LogIn, UserPlus } from "lucide-react";
 import { lora, quintessential } from "@/shared/fonts/fonts";
 import { useAuth } from "@/shared/contexts";
 import { Loading } from "@/shared/components/loading";
@@ -100,8 +102,8 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/80 dark:bg-black backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+        ? "bg-white/80 dark:bg-black backdrop-blur-md shadow-sm"
+        : "bg-transparent"
         }`}
       style={{ height: "var(--header-height)" }}
     >
@@ -138,50 +140,63 @@ export function Header() {
                 </li>
               ))}
 
-              {/* Auth Section */}
-              {user ? (
-                <>
-                  <li>
-                    <Link
-                      href={`/profile/${user.username}`}
-                      className="flex items-center gap-2 hover:text-[#7B3F01] transition-colors"
-                    >
-                      <span className="relative overflow-hidden">
-                        <span className={`${lora.className}`}>Hồ sơ {user.username ? `(${user.username})` : ""}</span>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
-                      </span>
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      onClick={logout}
-                      className="text-red-500 hover:text-red-600 transition-colors py-1 px-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
-                    >
-                      Đăng xuất
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link
-                      href="/login"
-                      className="py-1 px-3 transition-colors hover:text-[#7B3F01] relative group"
-                    >
-                      <span className={`${lora.className}`}>Đăng nhập</span>
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7B3F01] group-hover:w-full transition-all duration-300"></span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/register"
-                      className="py-1.5 px-4 bg-[#7B3F01]/10 text-[#7B3F01] rounded-lg hover:bg-[#7B3F01]/20 transition-colors"
-                    >
-                      <span className={`${lora.className}`}>Đăng ký</span>
-                    </Link>
-                  </li>
-                </>
-              )}
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger className="flex items-center justify-center w-10 h-10 rounded-full border border-white transition">
+                  <UserIcon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align="end" className="w-44 bg-white shadow-lg rounded-lg">
+                  {user ? (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/profile/${user.username}`}
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700  rounded-lg transition"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <UserIcon className="w-5 h-5" />
+                          {user.username}
+                        </Link>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem
+                        onClick={() => {
+                          logout();
+                          setMobileMenuOpen(false);
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-gray-100 rounded-lg transition"
+                      >
+                        <LogOut className="w-5 h-5" />
+                        Đăng xuất
+                      </DropdownMenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href="/login"
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <LogIn className="w-5 h-5" />
+                          Đăng nhập
+                        </Link>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href="/register"
+                          className="flex items-center gap-2 px-4 py-2 text-[#7B3F01] hover:bg-[#7B3F01]/10 rounded-lg transition"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <UserPlus className="w-5 h-5" />
+                          Đăng ký
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <li><ModeToggle /></li>
             </ul>
@@ -278,8 +293,8 @@ export function Header() {
                         <Link
                           href={path}
                           className={`block w-full text-left py-3 px-4 rounded-lg transition-colors duration-200 ${activeRoute === path
-                              ? "bg-[#7B3F01]/10 text-[#7B3F01]"
-                              : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                            ? "bg-[#7B3F01]/10 text-[#7B3F01]"
+                            : "hover:bg-gray-100 dark:hover:bg-gray-800"
                             }`}
                           onClick={() => setMobileMenuOpen(false)}
                         >

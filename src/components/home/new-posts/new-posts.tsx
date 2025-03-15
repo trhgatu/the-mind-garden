@@ -29,7 +29,7 @@ export function NewsPosts({
     const regularPosts = posts.length > 1 ? posts.slice(1, 7) : [];
 
     return (
-        <div className="relative bg-[url(/assets/images/Noise__Texture_2.svg)]">
+        <div className="relative">
             <div className="absolute hidden md:flex bottom-0 left-0 w-full -z-1">
                 <Image
                     src="/assets/images/texture-background.png"
@@ -71,23 +71,31 @@ export function NewsPosts({
                             <div className="lg:col-span-3 relative">
                                 <div className="relative w-full h-full bg-[url('/assets/background/letter-texture.png')] bg-cover ">
                                     {featuredPost ? (
-                                        <div className="relative z-10 bg-[url(/assets/images/grunge-concrete-material-background-texture-wall-concept.jpg)] bg-cover bg-center bg-no-repeat -rotate-6 h-full flex flex-col group transform transition-transform hover:scale-[1.02] hover:rotate-0 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 hover:shadow-lg p-6 md:p-10">
+                                        <div className="relative z-10 bg-cover bg-center bg-no-repeat -rotate-6 h-full flex flex-col group transform transition-transform hover:scale-[1.02] hover:rotate-0 overflow-hidden shadow-md border-[#e8d9c0] bg-[#f9f3e8] border-4 duration-300 hover:shadow-lg p-6 md:p-10">
+                                            <Image
+                                                src="/assets/images/grunge-concrete-material-background-texture-wall-concept.jpg"
+                                                alt="Background texture"
+                                                fill
+                                                className="object-cover object-center -z-10"
+                                                quality={80}
+                                                priority
+                                            />
                                             <Link href={`/post/${featuredPost.slug}`} className="block">
                                                 <div className="pt-4 text-left">
-                                                    <h3 className={`${lora.className} dark:text-black text-2xl font-bold mb-2 hover:text-[#a83240] transition-colors duration-300`}>
+                                                    <h3 className={`${lora.className} dark:text-black text-2xl font-bold mb-2  transition-colors duration-300`}>
                                                         {featuredPost.title}
                                                     </h3>
                                                 </div>
                                                 <div className="text-left">
-                                                    <h3 className={`${lora.className} dark:text-black mb-2 hover:text-[#a83240] transition-colors duration-300`}>
+                                                    <h3 className={`${lora.className} dark:text-black mb-2 transition-colors duration-300`}>
                                                         {featuredPost.content}
                                                     </h3>
-                                                    <p className="text-gray-700 italic dark:text-black line-clamp-3">
+                                                    <p className=" line-clamp-2 italic">
                                                         {featuredPost.excerpt}
                                                     </p>
                                                     <div className="mt-6 text-left">
                                                         <p className="text-[#5a3e2b] font-semibold italic">Sincerely,</p>
-                                                        <p className="text-[#5a3e2b] font-bold">{featuredPost.authorId?.name}</p>
+                                                        <p className="text-[#5a3e2b] font-bold">{featuredPost.authorId?.username}</p>
                                                     </div>
 
                                                 </div>

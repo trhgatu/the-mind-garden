@@ -6,6 +6,7 @@ interface UseFetchProps<TResponse> {
   path?: string;
   options?: UseQueryOptions<TResponse, Error>;
   token?: string | null;
+  skip?: boolean;
 }
 
 export function useFetch<TResponse>({ entity, path = "", options, token }: UseFetchProps<TResponse>) {

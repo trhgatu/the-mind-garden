@@ -60,7 +60,7 @@ const CustomBlockquote = (props: JSX.IntrinsicElements["blockquote"]) => (
 
 // Custom Paragraph with vintage styling
 const CustomParagraph = (props: JSX.IntrinsicElements["p"]) => (
-  <p className="text-lg leading-relaxed text-[#614e3a] mb-5 first-letter:text-2xl first-letter:font-bold first-letter:text-[#8b3e2f]" {...props} />
+  <p className="text-lg leading-relaxed text-[#614e3a] mb-5" {...props} />
 );
 
 // Custom Lists with vintage styling

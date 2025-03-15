@@ -17,12 +17,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [authChecked, setAuthChecked] = useState(false);
 
-    const [token, setToken] = useState<string | null>(() => {
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
         if (typeof window !== "undefined") {
-            return localStorage.getItem("token");
+            setToken(localStorage.getItem("token"));
         }
-        return null;
-    });
+    }, []);
+
 
     const [cachedUser, setCachedUser] = useState<User | null>(null);
 

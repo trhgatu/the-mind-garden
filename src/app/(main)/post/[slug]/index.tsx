@@ -35,7 +35,7 @@ export function PostPage() {
     const post = data?.data?.post;
 
     return (
-        <div className="max-w-4xl mx-auto px-8 py-16 my-12 relative" style={{ marginTop: "calc(var(--header-height) + 2rem)" }}>
+        <div className="max-w-5xl mx-auto px-8 my-10 py-16 relative">
             <div className="absolute hidden md:block md:bottom-10 md:right-[110px] pointer-events-none z-10">
                 <Image
                     src="/assets/images/flower-decor.png"
@@ -48,12 +48,7 @@ export function PostPage() {
             </div>
 
             {/* Main content container with vintage paper texture */}
-            <div className="relative bg-[#f9f3e8] border-8 border-double border-[#d3bea1] rounded-lg shadow-xl p-8 z-0"
-                style={{
-                    backgroundImage: "url('/assets/images/sepia_toned_grunge_style_background_0501.jpg')",
-                    backgroundBlendMode: "overlay"
-                }}>
-
+            <div className="relative bg-[#f9f3e8] border-8 border-double border-[#d3bea1] rounded-lg shadow-xl p-8 z-0">
                 <div className="flex items-center justify-center mb-8">
                     <div className="h-px bg-[#d3bea1] w-1/4"></div>
                     <div className="h-px bg-[#d3bea1] w-1/4"></div>
@@ -77,8 +72,12 @@ export function PostPage() {
                                 alt={post.title}
                                 width={800}
                                 height={450}
+                                layout="intrinsic"
+                                priority
                                 className="w-full h-auto rounded"
                             />
+
+
 
                             {/* Small decorative floral elements at corners of image */}
                             {/* <div className="absolute -top-3 -left-3 w-12 h-12 opacity-80">

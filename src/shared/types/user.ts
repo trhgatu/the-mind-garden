@@ -1,5 +1,7 @@
+import { Post } from "@/shared/types/post";
+
 export interface User {
-    id: string;
+    _id: string;
     name: string;
     username: string;
     nickname?:string;
@@ -9,4 +11,6 @@ export interface User {
     bio?: string;
     location?: string;
     website?: string;
+    createdAt: Date;
+    posts: Post
   }
