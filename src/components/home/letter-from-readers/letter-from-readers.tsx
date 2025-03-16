@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFetch } from "@/shared/hooks";
@@ -25,11 +25,11 @@ export function LettersFromReaders({ limit = 3 }: LetterFromReadersProps) {
 
   const letters: Post[] = data?.data ?? [];
 
-  const nextLetter = () => {
+  const nextLetter = useCallback(() => {
     if (letters.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % letters.length);
     }
-  };
+  }, [letters.length]);
 
   const prevLetter = () => {
     if (letters.length > 0) {
@@ -44,7 +44,7 @@ export function LettersFromReaders({ limit = 3 }: LetterFromReadersProps) {
     }, 8000);
 
     return () => clearInterval(interval);
-  }, [letters.length]);
+  }, [letters.length, nextLetter]);
 
   return (
     <div className="relative">
