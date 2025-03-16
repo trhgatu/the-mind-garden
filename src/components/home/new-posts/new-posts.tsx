@@ -21,7 +21,7 @@ export function NewsPosts({
 }: NewsPostsProps) {
     const { data: postsData, isLoading } = useFetch<{ data: Post[] }>({
         entity: "posts",
-        path: `?limit=${limit}&sort=createdAt:desc`,
+        path: `?type=article&limit=${limit}&sort=createdAt:desc`,
     });
 
     const posts = postsData?.data || [];
@@ -40,7 +40,7 @@ export function NewsPosts({
                     priority
                 />
             </div>
-            <div className={`w-full py-10 md:py-24 px-10 relative ${className}`}>
+            <div className={`w-full max-w-7xl mx-auto py-10 md:py-24 px-10 relative ${className}`}>
                 <div className="flex flex-col gap-10 md:gap-14 relative z-10">
                     <div className="flex flex-col items-center gap-6">
                         <p className={`${playfairDisPlay.className} font-bold text-black dark:text-white md:text-6xl text-4xl text-center tracking-wide`}>
@@ -77,7 +77,7 @@ export function NewsPosts({
                                                 alt="Background texture"
                                                 fill
                                                 className="object-cover object-center -z-10"
-                                                quality={80}
+                                                quality={60}
                                                 priority
                                             />
                                             <Link href={`/post/${featuredPost.slug}`} className="block">
@@ -112,9 +112,10 @@ export function NewsPosts({
                                     <Image
                                         src="/assets/images/flower-decor.png"
                                         alt="Stamp"
-                                        width={400}
+                                        width={300}
                                         height={400}
                                         className="w-full h-full rotate-12 object-cover"
+
                                     />
                                 </div>
                             </div>

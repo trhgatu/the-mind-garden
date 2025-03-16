@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import { User } from "@/shared/types/user";
 
@@ -6,6 +8,7 @@ interface ProfileAboutProps {
 }
 
 const ProfileAbout: React.FC<ProfileAboutProps> = ({ user }) => {
+    if (!user) return <div>Loading...</div>;
     return (
         <div>
             <h2 className="text-2xl font-serif text-[#614e3a] mb-6 leading-tight drop-shadow-sm"

@@ -17,15 +17,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [authChecked, setAuthChecked] = useState(false);
 
-    const [token, setToken] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            setToken(localStorage.getItem("token"));
-        }
-    }, []);
-
-
+    const [token, setToken] = useState<string | null>(() => {
+        return typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    });
     const [cachedUser, setCachedUser] = useState<User | null>(null);
 
     const { data, isLoading, isError, status } = useFetch<{ success: boolean; user: User | null }>(

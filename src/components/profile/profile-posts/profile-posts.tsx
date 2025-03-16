@@ -48,7 +48,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({ user, posts, isLoading }) =
                                 <p className={`${lora.className}text-[#7d6e5b] italic`}>{post.excerpt}</p>
 
                                 <div className="mt-6 flex justify-end">
-                                    <Link href={`/posts/${post.slug}`}>
+                                    <Link href={`/post/${post.slug}`}>
                                         <div className="inline-block bg-[#8b3e2f] hover:bg-[#614e3a] text-[#f9f3e8] px-5 py-2 rounded font-serif shadow-md transition-colors duration-300">
                                             Đọc tiếp
                                         </div>

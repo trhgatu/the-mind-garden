@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { playfairDisPlay } from "@/shared/fonts/fonts";
 import { useFetch } from "@/shared/hooks";
 import { Post, Category } from "@/shared/types";
-import { PostCardWithCategories } from "@/components/post/post-card";
 import { SkeletonCard } from "@/components/post/post-card/post-skeleton-card";
+import { NewPostCard } from "@/components/post/post-card/new-post-card";
+import { lora } from "@/shared/fonts/fonts";
 
 export function PostsWithCategories() {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -17,7 +17,7 @@ export function PostsWithCategories() {
 
     const { data: postsData, isLoading: postsLoading } = useFetch<{ data: Post[] }>({
         entity: "posts",
-        path: selectedCategory ? `?limit=5&categoryId=${selectedCategory}` : "",
+        path: selectedCategory ? `?type=article&limit=5&categoryId=${selectedCategory}` : "",
         options: {
             queryKey: ["posts", selectedCategory],
             enabled: !!selectedCategory,
@@ -35,46 +35,44 @@ export function PostsWithCategories() {
     }, [categories]);
 
     return (
-        <div className="max-w-full mx-auto">
-            <div className="md:max-w-7xl mx-auto">
-                <p className={`relative text-3xl px-4 ${playfairDisPlay.className} font-bold text-primary text-left mb-6 after:block after:w-20 after:h-[3px] after:bg-primary after:mt-2`}>
-                    Theo danh mục.
-                </p>
-                <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full p-4">
-                    <div className="flex justify-center">
-                        <TabsList className="grid grid-cols-4 gap-4">
-                            {categories?.map((category) => (
-                                <TabsTrigger key={category._id} value={category._id}>
-                                    {category.name}
-                                </TabsTrigger>
-                            ))}
-                        </TabsList>
-                    </div>
+        <div className="md:max-w-7xl mx-auto">
+            <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full p-4">
+                <div className="flex justify-center">
+                    <TabsList className="grid grid-cols-4 gap-4 bg-amber-50/80 border-2 border-amber-200 shadow-md">
+                        {categories?.map((category) => (
+                            <TabsTrigger
+                                key={category._id}
+                                value={category._id}
+                                className={`${lora.className} text-amber-900 data-[state=active]:bg-amber-100 data-[state=active]:text-amber-800 data-[state=active]:shadow-md transition-all duration-300`}
+                            >
+                                {category.name}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                </div>
 
-                    {categories?.map((category) => (
-                        <TabsContent className="mt-4" key={category._id} value={category._id}>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {isLoading ? (
-                                    Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
+                {categories?.map((category) => (
+                    <TabsContent className="mt-8" key={category._id} value={category._id}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {isLoading ? (
+                                Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
+                            ) : (
+                                fetchedPosts?.length > 0 ? (
+                                    fetchedPosts?.map((post) => (
+                                        <div key={post._id} className="relative transform transition-all duration-300">
+                                            <NewPostCard post={post} />
+                                        </div>
+                                    ))
                                 ) : (
-                                    fetchedPosts?.length > 0 ? (
-                                        fetchedPosts?.map((post) => (
-                                            <div key={post._id} className="relative">
-                                                <div className="transform transition-transform hover:scale-[1.02] hover:rotate-1 duration-300 rounded-lg overflow-hidden shadow-md border-2 border-[#e8d9c0]">
-                                                    <div className="absolute top-0 left-0 w-full h-full opacity-15 pointer-events-none sepia-[0.3]"></div>
-                                                    <PostCardWithCategories post={post} />
-                                                </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p className="text-center text-gray-500 col-span-full">Không có bài viết trong danh mục này</p>
-                                    )
-                                )}
-                            </div>
-                        </TabsContent>
-                    ))}
-                </Tabs>
-            </div>
+                                    <p className={`${lora.className} text-center text-amber-800 col-span-full py-8 bg-amber-50/50 rounded-lg border-2 border-amber-100 shadow-inner italic`}>
+                                        Không có bài viết trong danh mục này
+                                    </p>
+                                )
+                            )}
+                        </div>
+                    </TabsContent>
+                ))}
+            </Tabs>
         </div>
     );
 }

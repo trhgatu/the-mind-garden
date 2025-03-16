@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const queryClient = useMemo(() => new QueryClient(), []);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`${lato.className} font-base antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <QueryClientProvider client={queryClient}>
