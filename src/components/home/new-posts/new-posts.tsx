@@ -16,7 +16,7 @@ interface NewsPostsProps {
 
 export function NewsPosts({
     className = "",
-    title = "Mới.",
+    title = "Từ Người chăm vườn",
     limit = 5
 }: NewsPostsProps) {
     const { data: postsData, isLoading } = useFetch<{ data: Post[] }>({
@@ -40,10 +40,10 @@ export function NewsPosts({
                     priority
                 />
             </div>
-            <div className={`w-full max-w-7xl mx-auto py-10 md:py-24 px-10 relative ${className}`}>
+            <div className={`md:max-w-7xl mx-auto py-10 md:py-20 px-10 relative ${className}`}>
                 <div className="flex flex-col gap-10 md:gap-14 relative z-10">
-                    <div className="flex flex-col items-center gap-6">
-                        <p className={`${playfairDisPlay.className} font-bold text-black dark:text-white md:text-6xl text-4xl text-center tracking-wide`}>
+                    <div className="flex flex-col items-center gap-3">
+                        <p className={`${playfairDisPlay.className} font-bold text-amber-900 dark:text-white md:text-5xl text-2xl text-center tracking-wide`}>
                             {title}
                         </p>
                         <div className="relative flex items-center justify-center w-full max-w-lg">

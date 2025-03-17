@@ -36,18 +36,6 @@ export function PostPage() {
 
     return (
         <div className="max-w-5xl mx-auto px-8 my-10 py-16 relative">
-            <div className="absolute hidden md:block md:bottom-10 md:right-[110px] pointer-events-none z-10">
-                <Image
-                    src="/assets/images/flower-decor.png"
-                    alt="Flower decoration"
-                    width={400}
-                    height={600}
-                    className="h-full object-cover rotate-12 object-left"
-                    priority
-                />
-            </div>
-
-            {/* Main content container with vintage paper texture */}
             <div className="relative bg-[#f9f3e8] border-8 border-double border-[#d3bea1] rounded-lg shadow-xl p-8 z-0">
                 <div className="flex items-center justify-center mb-8">
                     <div className="h-px bg-[#d3bea1] w-1/4"></div>
