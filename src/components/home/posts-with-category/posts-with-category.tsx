@@ -93,7 +93,7 @@ export function PostsWithCategories() {
                         </div>
                     </div>
                 </div>
-                <div className={isSticky ? 'md:pt-20' : ''}>
+                <div className={isSticky ? 'md:pt-14' : ''}>
                     {categories?.map((category) => (
                         <TabsContent key={category._id} value={category._id}>
                             <div className="p-6">
