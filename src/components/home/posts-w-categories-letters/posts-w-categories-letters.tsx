@@ -5,27 +5,7 @@ import { LettersFromReaders } from "@/components/home/letter-from-readers/letter
 const PostsWithCategoriesAndLetters: React.FC = () => {
   return (
     <div
-      className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-4 md:p-8"
-    >
-      {/* Decorative elements */}
-      <div className="absolute top-2 left-6 w-16 h-6"
-        style={{
-          backgroundImage: "url('/assets/images/tape_texture.png')",
-          backgroundSize: "cover",
-          opacity: 0.7,
-          transform: "rotate(-5deg)"
-        }}
-      ></div>
-
-      <div className="absolute top-2 right-6 w-16 h-6"
-        style={{
-          backgroundImage: "url('/assets/images/tape_texture.png')",
-          backgroundSize: "cover",
-          opacity: 0.7,
-          transform: "rotate(5deg)"
-        }}
-      ></div>
-
+      className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-4 md:p-8">
       <div className="md:col-span-2 pt-6">
         <PostsWithCategories />
       </div>

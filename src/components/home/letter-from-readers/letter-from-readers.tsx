@@ -38,7 +38,6 @@ export function LettersFromReaders({ limit = 3 }: LetterFromReadersProps) {
   };
 
   useEffect(() => {
-    // Auto rotate letters every 8 seconds
     const interval = setInterval(() => {
       nextLetter();
     }, 8000);
@@ -48,31 +47,14 @@ export function LettersFromReaders({ limit = 3 }: LetterFromReadersProps) {
 
   return (
     <div className="relative">
-      {/* Envelope background */}
-      <div
-        className="relative overflow-hidden rounded-lg border-2 border-amber-200 shadow-lg bg-amber-50"
-        style={{
-          backgroundImage: "url('/assets/images/envelope_texture.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "420px"
-        }}
-      >
-        {/* Envelope fold effect */}
+      <div className="relative overflow-hidden rounded-lg border-2 border-amber-200 shadow-lg bg-amber-50">
         <div className="absolute top-0 left-0 w-full h-full" style={{
           backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)",
           pointerEvents: "none"
         }}></div>
-
-        {/* Wax seal or stamp */}
-        <div className="absolute -top-4 right-6 w-16 h-16 rounded-full bg-red-700/90 transform rotate-12 flex items-center justify-center shadow-md">
-          <span className={`${lora.className} text-xs text-white font-semibold`}>THƯ</span>
-        </div>
-
-        {/* Content */}
         <div className="p-6 pt-10">
           <h3 className={`${lora.className} text-xl font-bold text-amber-900 mb-6 text-center`}>
-            Lá thư từ độc giả
+            Thư từ độc giả
           </h3>
 
           {isLoading ? (

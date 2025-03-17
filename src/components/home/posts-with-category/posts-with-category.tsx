@@ -66,13 +66,12 @@ export function PostsWithCategories() {
 
     return (
         <div className="md:max-w-7xl mx-auto">
-            {/* This div serves as placeholder to prevent content jump when tabs become fixed */}
             <div ref={placeholderRef} className="transition-all duration-100"></div>
 
             <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
                 <div
                     ref={categoryTabsRef}
-                    className={`${isSticky ? 'fixed top-0 left-0 right-0 z-10 px-4 py-3 bg-amber-50/95 shadow-md backdrop-blur-sm transition-all duration-300' : 'relative'}`}
+                    className={`${isSticky ? 'fixed top-0 left-0 right-0 z-20 px-4 py-3 bg-amber-50/95 shadow-md backdrop-blur-sm transition-all duration-300' : 'relative'}`}
                     style={isSticky ? { top: `${HEADER_HEIGHT}px` } : {}}
                 >
                     <div className="flex justify-center max-w-7xl mx-auto">
@@ -89,8 +88,6 @@ export function PostsWithCategories() {
                         </TabsList>
                     </div>
                 </div>
-
-                {/* Add padding to content when tabs are sticky */}
                 <div className={`${isSticky ? 'pt-16' : 'pt-4'} transition-all duration-200`}>
                     {categories?.map((category) => (
                         <TabsContent className="mt-8" key={category._id} value={category._id}>
