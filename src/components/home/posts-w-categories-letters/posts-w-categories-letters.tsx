@@ -5,7 +5,7 @@ import { LettersFromReaders } from "@/components/home/letter-from-readers/letter
 const PostsWithCategoriesAndLetters: React.FC = () => {
   return (
     <div
-      className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-4 md:p-8">
+      className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:p-8">
       <div className="md:col-span-2 pt-6">
         <PostsWithCategories />
       </div>
